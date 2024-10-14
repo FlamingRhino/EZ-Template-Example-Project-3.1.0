@@ -55,6 +55,9 @@ void initialize() {
   chassis.initialize();
   ez::as::initialize();
   master.rumble(".");
+
+
+  //my random stuff
 }
 
 /**
@@ -112,6 +115,21 @@ void autonomous() {
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+
+
+//random funtions I will make becuese no one likes object oraented progarming
+
+void nicksl2thing(){
+  //the wierd toggle that nick wanted
+  intake.move(0);
+  //this is how long you wait for the intake to revese
+  pros::delay(375);
+  if (master.get_digital(DIGITAL_L2) == 1){
+      intake.move(-127);
+    }
+}
+
+
 void opcontrol() {
   // This is preference to what you like to drive on
   pros::motor_brake_mode_e_t driver_preference_brake = MOTOR_BRAKE_COAST;
@@ -123,6 +141,18 @@ void opcontrol() {
   while (true) {
     // PID Tuner
     // After you find values that you're happy with, you'll have to set them in auton.cpp
+    //left_wing.button_toggle(master.get_digital(DIGITAL_X));
+
+    if (master.get_digital(DIGITAL_L1) == 1){
+      intake.move(127);
+    }
+
+    if (master.get_digital(DIGITAL_L2) == 1){
+      nicksl2thing();
+    }
+
+    Piston1.buttons(master.get_digital(DIGITAL_R1), master.get_digital(DIGITAL_R2));
+    Piston2.buttons(master.get_digital(DIGITAL_UP), master.get_digital(DIGITAL_DOWN));
     if (!pros::competition::is_connected()) {
       // Enable / Disable PID Tuner
       //  When enabled:
@@ -134,7 +164,7 @@ void opcontrol() {
       // Trigger the selected autonomous routine
       if (master.get_digital(DIGITAL_B) && master.get_digital(DIGITAL_DOWN)) {
         autonomous();
-        chassis.drive_brake_set(driver_preference_brake);
+        chassis.drive_brake_set(MOTOR_BRAKE_HOLD);
       }
 
       chassis.pid_tuner_iterate();  // Allow PID Tuner to iterate
