@@ -121,13 +121,14 @@ void autonomous() {
 
 void nicksl2thing(){
   //the wierd toggle that nick wanted
-  intake.move(0);
+  intake2.move(0);
   //this is how long you wait for the intake to revese
   pros::delay(375);
   if (master.get_digital(DIGITAL_L2) == 1){
-      intake.move(-127);
+      intake2.move(-127);
     }
 }
+
 
 
 void opcontrol() {
@@ -135,6 +136,7 @@ void opcontrol() {
   pros::motor_brake_mode_e_t driver_preference_brake = MOTOR_BRAKE_COAST;
 
   chassis.drive_brake_set(driver_preference_brake);
+  
 
 
 
@@ -144,8 +146,22 @@ void opcontrol() {
     //left_wing.button_toggle(master.get_digital(DIGITAL_X));
 
 
-    Piston1.buttons(master.get_digital(DIGITAL_R1), master.get_digital(DIGITAL_R2));
-    Piston2.buttons(master.get_digital(DIGITAL_UP), master.get_digital(DIGITAL_DOWN));
+    Piston11.buttons(master.get_digital(DIGITAL_R1), master.get_digital(DIGITAL_R2));
+    Piston22.buttons(master.get_digital(DIGITAL_UP), master.get_digital(DIGITAL_DOWN));
+
+
+
+        
+    if (master.get_digital(DIGITAL_L1) == 1){
+      intake2.move(127);
+    }
+
+    if (master.get_digital(DIGITAL_L2) == 1){
+      nicksl2thing();
+    }
+
+
+
     if (!pros::competition::is_connected()) {
       // Enable / Disable PID Tuner
       //  When enabled:
@@ -172,14 +188,7 @@ void opcontrol() {
     // . . .
     // Put more user control code here!
     // . . .
-    
-    if (master.get_digital(DIGITAL_L1) == 1){
-      intake.move(127);
-    }
-
-    if (master.get_digital(DIGITAL_L2) == 1){
-      nicksl2thing();
-    }
+  
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
