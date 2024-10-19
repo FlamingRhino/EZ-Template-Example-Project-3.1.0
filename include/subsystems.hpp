@@ -7,7 +7,7 @@
 ez::Piston Piston1('A');
 ez::Piston Piston2('B');
 //{port1,port2} put a - to revese 
-pros::MotorGroup intake  ({1,2});
+pros::MotorGroup intake  ({7,-17});
 
 // inline pros::Motor intake(1);
 // inline pros::adi::DigitalIn limit_switch('A');

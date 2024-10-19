@@ -143,13 +143,6 @@ void opcontrol() {
     // After you find values that you're happy with, you'll have to set them in auton.cpp
     //left_wing.button_toggle(master.get_digital(DIGITAL_X));
 
-    if (master.get_digital(DIGITAL_L1) == 1){
-      intake.move(127);
-    }
-
-    if (master.get_digital(DIGITAL_L2) == 1){
-      nicksl2thing();
-    }
 
     Piston1.buttons(master.get_digital(DIGITAL_R1), master.get_digital(DIGITAL_R2));
     Piston2.buttons(master.get_digital(DIGITAL_UP), master.get_digital(DIGITAL_DOWN));
@@ -179,6 +172,14 @@ void opcontrol() {
     // . . .
     // Put more user control code here!
     // . . .
+    
+    if (master.get_digital(DIGITAL_L1) == 1){
+      intake.move(127);
+    }
+
+    if (master.get_digital(DIGITAL_L2) == 1){
+      nicksl2thing();
+    }
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
