@@ -236,6 +236,15 @@ void opcontrol() {
 
     }
 
+    if (master.get_digital(DIGITAL_LEFT)){
+      arm.move(127);
+    }else if(master.get_digital(DIGITAL_RIGHT)){
+      arm.move(-127);
+    }else{
+      arm.move(0);
+      arm.brake();
+    }
+
 
 
     if (!pros::competition::is_connected()) {
