@@ -248,8 +248,7 @@ void opcontrol() {
       arm.move(-127);
     }else{
       //stop
-      arm.move(0);
-      arm.brake();
+      arm.move(10);
     }
 
 
