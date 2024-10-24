@@ -41,6 +41,7 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+      Auton("red far side but also work with blue", red_far_side),
       Auton("PID loop test code to move up one foot and turn around and come back", drive_example),
       Auton("Example Turn\n\nTurn 3 times.", turn_example),
       Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
@@ -58,6 +59,8 @@ void initialize() {
 
 
   //my random stuff
+  arm.set_voltage_limit(1, 5500);
+
 }
 
 /**
@@ -120,22 +123,66 @@ void autonomous() {
 //random funtions I will make becuese no one likes object oraented progarming
 
 void nicksl2thing(){
+
   //the wierd toggle that nick wanted
   intake2.move(0);
+  
   //this is how long you wait for the intake to revese
-  pros::delay(375);
+  pros::delay(120);
   if (master.get_digital(DIGITAL_L2) == 1){
       intake2.move(-127);
+      bool nicktoggle = true;
+      while (nicktoggle = true)
+      {
+        if(master.get_digital(DIGITAL_L2) == 0){
+          intake2.move(0);
+          break;
+        }
+      }
+      
     }
 }
+
+void turnarmtoplace(float place){
+  float pos = rotation_sensor.get_position();
+while((place -3) > pos and (place -3) > pos ){
+  if ((place -2) > pos){
+    
+    while((place -2) > pos){
+      
+      arm.move_relative(3,150);
+      pros::delay(10);
+      float pos = rotation_sensor.get_position();
+    }
+
+  }
+  if (pos  > (place +2)){
+
+      arm.move_relative(-3, -150);
+      pros::delay(10);
+      float pos = rotation_sensor.get_position();
+    }
+  }
+
+  arm.brake();
+
+}
+
+//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+//NICKNICKNICKNICKNICKNICKNIKNICKNICK
+
+
 
 
 
 void opcontrol() {
   // This is preference to what you like to drive on
-  pros::motor_brake_mode_e_t driver_preference_brake = MOTOR_BRAKE_COAST;
+   
+  pros::motor_brake_mode_e_t driver_preference_brake = MOTOR_BRAKE_HOLD;
 
   chassis.drive_brake_set(driver_preference_brake);
+
+  int armcurrentpos = 0;
   
 
 
@@ -160,6 +207,31 @@ void opcontrol() {
       nicksl2thing();
     }
 
+    if (master.get_digital(DIGITAL_X) == 1){
+      
+      if (armcurrentpos  == 0){
+
+        turnarmtoplace(93);
+        armcurrentpos = 1;
+        
+      }
+            
+      if (armcurrentpos  ==  1){
+
+        turnarmtoplace(555);
+        armcurrentpos = 0;
+        
+      }
+
+    }
+
+    if (master.get_digital(DIGITAL_B) == 1){
+
+      turnarmtoplace(-22);
+      armcurrentpos = 0;
+
+    }
+
 
 
     if (!pros::competition::is_connected()) {
@@ -167,7 +239,7 @@ void opcontrol() {
       //  When enabled:
       //  * use A and Y to increment / decrement the constants
       //  * use the arrow keys to navigate the constants
-      if (master.get_digital_new_press(DIGITAL_X))
+      if (master.get_digital_new_press(DIGITAL_Y))
         chassis.pid_tuner_toggle();
 
       // Trigger the selected autonomous routine
