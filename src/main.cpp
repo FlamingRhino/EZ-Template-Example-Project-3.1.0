@@ -101,8 +101,9 @@ void autonomous() {
   chassis.drive_imu_reset();                  // Reset gyro position to 0
   chassis.drive_sensor_reset();               // Reset drive sensors to 0
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
-
+  arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
   ez::as::auton_selector.selected_auton_call();  // Calls selected auton from autonomous selector
+
 }
 
 /**
@@ -142,7 +143,7 @@ void nicksl2thing(){
       
     }
 }
-
+//super abd code tht does not work
 void turnarmtoplace(float place){
   float pos = rotation_sensor.get_position();
 while((place -200) > pos and (place + 200) < pos ){
@@ -186,6 +187,8 @@ void opcontrol() {
   chassis.drive_brake_set(driver_preference_brake);
 
   int armcurrentpos = 0;
+
+  arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
   
 
 
@@ -195,30 +198,30 @@ void opcontrol() {
     // After you find values that you're happy with, you'll have to set them in auton.cpp
     //left_wing.button_toggle(master.get_digital(DIGITAL_X));
 
-
+    //pistons-upersimple
     Piston11.buttons(master.get_digital(DIGITAL_R1), master.get_digital(DIGITAL_R2));
     Piston22.buttons(master.get_digital(DIGITAL_UP), master.get_digital(DIGITAL_DOWN));
 
 
-
+    //intake code
         
     if (master.get_digital(DIGITAL_L1) == 1){
       intake2.move(127);
     }
-
+    //intake revse
     if (master.get_digital(DIGITAL_L2) == 1){
       nicksl2thing();
     }
-
+    //move arm to pos code
     if (master.get_digital(DIGITAL_X) == 1){
-      
+      //pos   
       if (armcurrentpos  == 0){
 
         turnarmtoplace(5800);
         armcurrentpos = 1;
         
       }
-            
+      //pos 2    
       if (armcurrentpos  ==  1){
 
         turnarmtoplace(15250);
@@ -227,7 +230,7 @@ void opcontrol() {
       }
 
     }
-
+    //resting place for arm
     if (master.get_digital(DIGITAL_B) == 1){
 
       turnarmtoplace(17762);
@@ -235,12 +238,16 @@ void opcontrol() {
       armcurrentpos = 0;
 
     }
-
-    if (master.get_digital(DIGITAL_LEFT)){
+////// this is the maunel arm code 
+//  up
+    if (master.get_digital(DIGITAL_UP)){
+      //up
       arm.move(127);
-    }else if(master.get_digital(DIGITAL_RIGHT)){
+    }else if(master.get_digital(DIGITAL_DOWN)){
+      //down
       arm.move(-127);
     }else{
+      //stop
       arm.move(0);
       arm.brake();
     }
