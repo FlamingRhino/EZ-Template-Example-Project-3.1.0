@@ -240,10 +240,10 @@ void opcontrol() {
     }
 ////// this is the maunel arm code 
 //  up
-    if (master.get_digital(DIGITAL_UP)){
+    if (master.get_digital(DIGITAL_X)){
       //up
       arm.move(127);
-    }else if(master.get_digital(DIGITAL_DOWN)){
+    }else if(master.get_digital(DIGITAL_B)){
       //down
       arm.move(-127);
     }else{
