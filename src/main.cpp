@@ -118,8 +118,6 @@ void autonomous() {
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
-
-
 //random funtions I will make becuese no one likes object oraented progarming
 
 void nicksl2thing(){
@@ -136,8 +134,10 @@ void nicksl2thing(){
       {
         if(master.get_digital(DIGITAL_L2) == 0){
           intake2.move(0);
+
           break;
         }
+        pros::delay(10);
       }
       
     }
@@ -145,22 +145,25 @@ void nicksl2thing(){
 
 void turnarmtoplace(float place){
   float pos = rotation_sensor.get_position();
-while((place -3) > pos and (place -3) > pos ){
+while((place -200) > pos and (place + 200) < pos ){
   if ((place -2) > pos){
     
-    while((place -2) > pos){
+    while((place -200) > pos){
       
-      arm.move_relative(3,150);
+      arm.move(100);
       pros::delay(10);
       float pos = rotation_sensor.get_position();
     }
 
   }
-  if (pos  > (place +2)){
-
-      arm.move_relative(-3, -150);
-      pros::delay(10);
-      float pos = rotation_sensor.get_position();
+  if (pos  > (place +200)){
+      while (pos > (place +2)){
+        arm.move(-100);
+        pros::delay(10);
+        float pos = rotation_sensor.get_position();
+      }
+      
+        
     }
   }
 
@@ -211,14 +214,14 @@ void opcontrol() {
       
       if (armcurrentpos  == 0){
 
-        turnarmtoplace(93);
+        turnarmtoplace(5800);
         armcurrentpos = 1;
         
       }
             
       if (armcurrentpos  ==  1){
 
-        turnarmtoplace(555);
+        turnarmtoplace(15250);
         armcurrentpos = 0;
         
       }
@@ -227,7 +230,8 @@ void opcontrol() {
 
     if (master.get_digital(DIGITAL_B) == 1){
 
-      turnarmtoplace(-22);
+      turnarmtoplace(17762);
+      
       armcurrentpos = 0;
 
     }
@@ -241,6 +245,7 @@ void opcontrol() {
       //  * use the arrow keys to navigate the constants
       if (master.get_digital_new_press(DIGITAL_Y))
         chassis.pid_tuner_toggle();
+
 
       // Trigger the selected autonomous routine
       if (master.get_digital(DIGITAL_B) && master.get_digital(DIGITAL_DOWN)) {
