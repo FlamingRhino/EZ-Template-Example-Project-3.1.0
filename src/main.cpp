@@ -41,7 +41,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-      Auton("red far side but also work with blue", red_far_side),
+      Auton("red far side but also work with RED RED RED RED RED RED RED RED RED", red_far_side),
+      Auton("Blue far side, get most of win point BLUE BLUE BLUE BLUE BLUE", blue_far_side),
       Auton("PID loop test code to move up one foot and turn around and come back", drive_example),
       Auton("Example Turn\n\nTurn 3 times.", turn_example),
       Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
@@ -101,7 +102,7 @@ void autonomous() {
   chassis.drive_imu_reset();                  // Reset gyro position to 0
   chassis.drive_sensor_reset();               // Reset drive sensors to 0
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
-  arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+  arm.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
   ez::as::auton_selector.selected_auton_call();  // Calls selected auton from autonomous selector
   
 

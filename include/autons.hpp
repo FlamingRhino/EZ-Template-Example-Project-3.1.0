@@ -13,6 +13,7 @@ void motion_chaining();
 void combining_movements();
 void interfered_example();
 void red_far_side();
+void blue_far_side();
 
 
 void default_constants();
