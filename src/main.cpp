@@ -189,6 +189,8 @@ void opcontrol() {
   int armcurrentpos = 0;
 
   arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
+  float armspeed = 127;
   
 
 
@@ -244,14 +246,22 @@ void opcontrol() {
 //  up
     if (master.get_digital(DIGITAL_X)){
       //up
-      arm.move(127);
+      arm.move(armspeed);
     }else if(master.get_digital(DIGITAL_B)){
       //down
-      arm.move(-127);
+      arm.move(-1 * armspeed);
     }else{
       //stop
       arm.move(10);
     }
+
+    if (master.get_digital(DIGITAL_A)){
+      armspeed = 40;
+    }else{
+      armspeed = 127;
+    }
+
+    
 
 
 
