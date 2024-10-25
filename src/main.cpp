@@ -103,6 +103,7 @@ void autonomous() {
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
   arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
   ez::as::auton_selector.selected_auton_call();  // Calls selected auton from autonomous selector
+  
 
 }
 
@@ -256,9 +257,9 @@ void opcontrol() {
     }
 
     if (master.get_digital(DIGITAL_A)){
-      armspeed = 30;
+      armspeed = 40;
     }else{
-      armspeed = 110;
+      armspeed = 127;
     }
 
     

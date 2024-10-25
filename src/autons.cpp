@@ -224,6 +224,7 @@ void interfered_example() {
 
 
 void red_far_side(){
+  Piston11.set(false);
   chassis.pid_drive_set(15_in, DRIVE_SPEED);
   chassis.pid_wait();
 
@@ -246,7 +247,8 @@ void red_far_side(){
   chassis.pid_drive_set(-38_in, DRIVE_SPEED);
   chassis.pid_wait();
 
-  pros::delay(1000);
+  Piston11.set(true);
+  pros::delay(150);
 
   chassis.pid_turn_set(180_deg, TURN_SPEED);
   chassis.pid_wait();
@@ -262,7 +264,7 @@ void red_far_side(){
   chassis.pid_drive_set(8_in, DRIVE_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_turn_set(250_deg, TURN_SPEED);
+  chassis.pid_turn_set(-250_deg, TURN_SPEED);
   chassis.pid_wait();
 
   chassis.pid_drive_set(12_in, DRIVE_SPEED);
