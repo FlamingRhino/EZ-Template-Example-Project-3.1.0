@@ -213,6 +213,7 @@ void opcontrol() {
       nicksl2thing();
     }
     //move arm to pos code
+    /*
     if (master.get_digital(DIGITAL_X)){
       //pos   
       if (armcurrentpos  == 0){
@@ -238,6 +239,7 @@ void opcontrol() {
       armcurrentpos = 0;
 
     }
+    */
 ////// this is the maunel arm code 
 //  up
     if (master.get_digital(DIGITAL_X)){
