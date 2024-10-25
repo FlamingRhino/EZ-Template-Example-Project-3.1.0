@@ -145,23 +145,23 @@ void nicksl2thing(){
 }
 //super abd code tht does not work
 void turnarmtoplace(float place){
-  float pos = rotation_sensor.get_position();
-while((place -200) > pos and (place + 200) < pos ){
-  if ((place -2) > pos){
+  float pos = rotation_sensor.get_angle();
+while((place -200) < pos and (place + 200) > pos ){
+  if ((place -200) < pos){
     
     while((place -200) > pos){
       
       arm.move(100);
       pros::delay(10);
-      float pos = rotation_sensor.get_position();
+      float pos = rotation_sensor.get_angle();
     }
 
   }
   if (pos  > (place +200)){
-      while (pos > (place +2)){
+      while (pos > (place +200)){
         arm.move(-100);
         pros::delay(10);
-        float pos = rotation_sensor.get_position();
+        float pos = rotation_sensor.get_angle();
       }
       
         
@@ -213,7 +213,7 @@ void opcontrol() {
       nicksl2thing();
     }
     //move arm to pos code
-    if (master.get_digital(DIGITAL_X) == 1){
+    if (master.get_digital(DIGITAL_X)){
       //pos   
       if (armcurrentpos  == 0){
 
@@ -231,7 +231,7 @@ void opcontrol() {
 
     }
     //resting place for arm
-    if (master.get_digital(DIGITAL_B) == 1){
+    if (master.get_digital(DIGITAL_B)){
 
       turnarmtoplace(17762);
       
