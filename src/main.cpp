@@ -256,9 +256,9 @@ void opcontrol() {
     }
 
     if (master.get_digital(DIGITAL_A)){
-      armspeed = 40;
+      armspeed = 30;
     }else{
-      armspeed = 127;
+      armspeed = 110;
     }
 
     
