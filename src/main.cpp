@@ -1,4 +1,5 @@
 #include "main.h"
+#include "arm.cpp"
 
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
@@ -28,7 +29,7 @@ void initialize() {
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
 
   // Configure your chassis controls
-  chassis.opcontrol_curve_buttons_toggle(true);  // Enables modifying the controller curve with buttons on the joysticks
+  chassis.opcontrol_curve_buttons_toggle(false);  // Enables modifying the controller curve with buttons on the joysticks
   chassis.opcontrol_drive_activebrake_set(0);    // Sets the active brake kP. We recommend ~2.  0 will disable.
   chassis.opcontrol_curve_default_set(2.1, 4.3);    // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)
 
@@ -60,7 +61,11 @@ void initialize() {
 
 
   //my random stuff
-  arm.set_voltage_limit(1, 5500);
+
+
+  armPID.exit_condition_set(80, 50, 300, 150, 500, 500);
+ // arm.tare_position();
+
 
 }
 
@@ -190,9 +195,18 @@ void opcontrol() {
 
   int armcurrentpos = 0;
 
-  arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+  //arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
   float armspeed = 127;
+
+  //armPID.target_set(60);
+
+  double target = 0.0;
+  double error = 0.0;
+  rotation_sensor.set_position(0);
+  arm.tare_position();
+
+
   
 
 
@@ -202,6 +216,9 @@ void opcontrol() {
     // After you find values that you're happy with, you'll have to set them in auton.cpp
     //left_wing.button_toggle(master.get_digital(DIGITAL_X));
 
+      error = target - rotation_sensor.get_angle();
+     //arm.move(armPID.compute_error(error, arm.get_position()));
+      arm.move(armPID.compute(arm.get_position()));
     //pistons-upersimple
     Piston11.buttons(master.get_digital(DIGITAL_R1), master.get_digital(DIGITAL_R2));
     Piston22.buttons(master.get_digital(DIGITAL_UP), master.get_digital(DIGITAL_DOWN));
@@ -217,20 +234,24 @@ void opcontrol() {
       nicksl2thing();
     }
     //move arm to pos code
-    /*
-    if (master.get_digital(DIGITAL_X)){
+  
+    if (master.get_digital_new_press(DIGITAL_X)){  
       //pos   
-      if (armcurrentpos  == 0){
-
-        turnarmtoplace(5800);
-        armcurrentpos = 1;
-        
-      }
+      
       //pos 2    
       if (armcurrentpos  ==  1){
 
-        turnarmtoplace(15250);
+        armPID.target_set(1600);
+        target = 0;
         armcurrentpos = 0;
+        
+
+      }else if (armcurrentpos  == 0){
+
+        armPID.target_set(500);
+        target = -500;
+        armcurrentpos = 1;
+
         
       }
 
@@ -238,14 +259,16 @@ void opcontrol() {
     //resting place for arm
     if (master.get_digital(DIGITAL_B)){
 
-      turnarmtoplace(17762);
+      armPID.target_set(40);
+      target = 115;
       
       armcurrentpos = 0;
 
     }
-    */
+  
 ////// this is the maunel arm code 
 //  up
+/*
     if (master.get_digital(DIGITAL_X)){
       //up
       arm.move(armspeed);
@@ -254,7 +277,7 @@ void opcontrol() {
       arm.move(-1 * armspeed);
     }else{
       //stop
-      arm.move(10);
+     // arm.move(10);
     }
 
     if (master.get_digital(DIGITAL_A)){
@@ -262,6 +285,7 @@ void opcontrol() {
     }else{
       armspeed = 127;
     }
+    */
 
     
 
@@ -294,6 +318,13 @@ void opcontrol() {
     // . . .
     // Put more user control code here!
     // . . .
+
+            //arm.move(armPID.compute(rotation_sensor.get_angle()));
+
+    
+
+
+    
   
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME

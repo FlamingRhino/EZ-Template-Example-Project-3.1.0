@@ -1,4 +1,5 @@
 #include "main.h"
+#include "arm.cpp"
 
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
@@ -15,7 +16,7 @@ const int SWING_SPEED = 90;
 ///
 void default_constants() {
   chassis.pid_heading_constants_set(11, 0, 20);
-  chassis.pid_drive_constants_set(11.6, 0.6, 99);
+  chassis.pid_drive_constants_set(12.3, 0.6, 99);
   chassis.pid_turn_constants_set(2.8, 0.053, 21, 15);
   chassis.pid_swing_constants_set(6, 0, 65);
 
@@ -238,19 +239,17 @@ void red_far_side(){
   pros::delay(500);
   intake2.move(0);
 
-  chassis.pid_drive_set(3_in, DRIVE_SPEED);
+  chassis.pid_drive_set(7_in, DRIVE_SPEED);
   chassis.pid_wait();
 
   chassis.pid_turn_set(55_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-34_in, DRIVE_SPEED);
+  chassis.pid_drive_set(-32_in, DRIVE_SPEED);
   chassis.pid_wait();
-
+  chassis.pid_drive_set(-6_in, 80);
+  pros::delay(150);
   Piston11.set(true);
-  pros::delay(0);
-
-  chassis.pid_drive_set(-4_in, DRIVE_SPEED);
   chassis.pid_wait();
 
   chassis.pid_turn_set(180_deg, TURN_SPEED);
@@ -264,7 +263,7 @@ void red_far_side(){
   chassis.pid_turn_set(270_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(8_in, DRIVE_SPEED);
+  chassis.pid_drive_set(6_in, DRIVE_SPEED);
   chassis.pid_wait();
 
   chassis.pid_turn_set(250_deg, TURN_SPEED);
@@ -276,10 +275,10 @@ void red_far_side(){
   chassis.pid_drive_set(-12_in, DRIVE_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_turn_set(-90_deg, TURN_SPEED);
+  chassis.pid_turn_set(280_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(13.5_in, DRIVE_SPEED);
+  chassis.pid_drive_set(12.5_in, DRIVE_SPEED);
   chassis.pid_wait();
 
   chassis.pid_drive_set(-14_in, DRIVE_SPEED);
