@@ -1,7 +1,7 @@
 #include "main.h"
 #include "subsystems.hpp"
 
-inline ez::PID armPID{0.45, 0.003, 4, 100, "armp"};
+inline ez::PID armPID{0.35, 0.004, 4, 100, "armp"};
 
 inline void armtask(){
     while (true) {

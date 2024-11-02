@@ -42,6 +42,7 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+      Auton("skills code which might work, SKILLS SKILL SKILLS", scillsauto),
       Auton("red far side but also work with RED RED RED RED RED RED RED RED RED", red_far_side),
       Auton("Blue far side, get most of win point BLUE BLUE BLUE BLUE BLUE", blue_far_side),
       Auton("PID loop test code to move up one foot and turn around and come back", drive_example),
@@ -65,6 +66,7 @@ void initialize() {
 
   armPID.exit_condition_set(80, 50, 300, 150, 500, 500);
  // arm.tare_position();
+  arm.tare_position();
 
 
 }
@@ -248,7 +250,7 @@ void opcontrol() {
 
       }else if (armcurrentpos  == 0){
 
-        armPID.target_set(500);
+        armPID.target_set(400);
         target = -500;
         armcurrentpos = 1;
 
