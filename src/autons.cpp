@@ -450,7 +450,7 @@ void blue_far_side(){
 
 void goforwardauton(){
 
-  chassis.pid_drive_set(-40, DRIVE_SPEED);
+  chassis.pid_drive_set(-34, DRIVE_SPEED);
   chassis.pid_wait();
 
   Piston11.set(true);
@@ -459,12 +459,6 @@ void goforwardauton(){
   chassis.pid_wait();
 
   intake2.move(127);
-
-  
-
-
-
-
 
 
 
@@ -742,24 +736,6 @@ void scillsauto(){
   chassis.pid_drive_set(-144_in, DRIVE_SPEED);
   chassis.pid_wait();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 
 
 
