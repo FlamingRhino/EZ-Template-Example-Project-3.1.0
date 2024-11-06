@@ -263,7 +263,7 @@ void red_far_side(){
   chassis.pid_turn_set(270_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(6_in, DRIVE_SPEED);
+  chassis.pid_drive_set(4.5_in, DRIVE_SPEED);
   chassis.pid_wait();
 
   chassis.pid_turn_set(250_deg, TURN_SPEED);
@@ -374,7 +374,7 @@ void blue_far_side(){
   chassis.pid_turn_set(-270_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(8_in, DRIVE_SPEED);
+  chassis.pid_drive_set(4.5_in, DRIVE_SPEED);
   chassis.pid_wait();
 
   chassis.pid_turn_set(-250_deg, TURN_SPEED);
@@ -433,6 +433,32 @@ void blue_far_side(){
 
   
   
+
+  
+
+
+
+
+
+
+
+}
+
+
+
+
+
+void goforwardauton(){
+
+  chassis.pid_drive_set(-40, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  Piston11.set(true);
+
+  chassis.pid_drive_set(-8, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  intake2.move(127);
 
   
 
@@ -683,7 +709,14 @@ void scillsauto(){
    chassis.pid_drive_set(-32_in, 60);
   chassis.pid_wait();
 
+  chassis.pid_drive_set(-6_in, 70);
+  pros::delay(50);
+
   Piston11.set(true);
+
+  intake2.move(127);
+
+  chassis.pid_wait();
 
   chassis.pid_turn_set(-95, TURN_SPEED);
   chassis.pid_wait();
@@ -696,15 +729,17 @@ void scillsauto(){
   chassis.pid_turn_set(-120, TURN_SPEED);
   chassis.pid_wait();
 
+  intake2.move(0);
+
   chassis.pid_drive_set(-40_in, 80);
   chassis.pid_wait();
 
   Piston11.set(false);
 
-  chassis.pid_turn_set(110, TURN_SPEED);
+  chassis.pid_turn_set(100, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-144_in, 80);
+  chassis.pid_drive_set(-144_in, DRIVE_SPEED);
   chassis.pid_wait();
 
 

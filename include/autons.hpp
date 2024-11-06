@@ -15,6 +15,7 @@ void interfered_example();
 void red_far_side();
 void blue_far_side();
 void scillsauto();
+void goforwardauton();
 
 
 void default_constants();

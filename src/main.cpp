@@ -42,9 +42,10 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-      Auton("skills code which might work, SKILLS SKILL SKILLS", scillsauto),
-      Auton("red far side but also work with RED RED RED RED RED RED RED RED RED", red_far_side),
-      Auton("Blue far side, get most of win point BLUE BLUE BLUE BLUE BLUE", blue_far_side),
+      Auton("skills code which might work, SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS", scillsauto),
+      Auton("red far side but also work with RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED ", red_far_side),
+      Auton("Blue far side, get most of win point BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE", blue_far_side),
+      Auton("go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward", goforwardauton),
       Auton("PID loop test code to move up one foot and turn around and come back", drive_example),
       Auton("Example Turn\n\nTurn 3 times.", turn_example),
       Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
