@@ -281,13 +281,9 @@ void red_far_side(){
   chassis.pid_drive_set(6.5_in, DRIVE_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-14_in, DRIVE_SPEED);
+  chassis.pid_drive_set(-9.5_in, DRIVE_SPEED);
   chassis.pid_wait();
-
-  chassis.pid_drive_set(5.5_in, DRIVE_SPEED);
-  chassis.pid_wait();
-
-  chassis.pid_turn_set(-0_deg, TURN_SPEED);
+  chassis.pid_turn_set(360_deg, TURN_SPEED);
   chassis.pid_wait();
 
   intake2.move(0);
@@ -450,12 +446,12 @@ void blue_far_side(){
 
 void goforwardauton(){
 
-  chassis.pid_drive_set(-34, DRIVE_SPEED);
+  chassis.pid_drive_set(-34, 60);
   chassis.pid_wait();
 
   Piston11.set(true);
 
-  chassis.pid_drive_set(-8, DRIVE_SPEED);
+  chassis.pid_drive_set(-8, 60);
   chassis.pid_wait();
 
   intake2.move(127);
