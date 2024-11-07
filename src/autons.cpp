@@ -482,23 +482,6 @@ void goforwardauton(){
   chassis.pid_drive_set(-44_in, DRIVE_SPEED);
   chassis.pid_wait(); 
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 

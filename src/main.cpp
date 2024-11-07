@@ -190,7 +190,7 @@ while((place -200) < pos and (place + 200) > pos ){
 //NICKNICKNICKNICKNICKNICKNIKNICKNICK
 
 
-inline void clockthing(){
+void clockthing(){
     int timer = 0;
     while (true) {
 
@@ -231,7 +231,7 @@ void opcontrol() {
   arm.tare_position();
 
   int time_form_op_start = 0;
-  inline pros::Task clockthingg(clockthing);
+  pros::Task clockthingg(clockthing);
 
 
 
