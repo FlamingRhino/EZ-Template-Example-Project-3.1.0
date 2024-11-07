@@ -388,7 +388,8 @@ void blue_far_side(){
 
   chassis.pid_drive_set(-9.5_in, DRIVE_SPEED);
   chassis.pid_wait();
-  chassis.pid_turn_set(0_deg, TURN_SPEED);
+
+  chassis.pid_turn_set(360_deg, TURN_SPEED);
   chassis.pid_wait();
 
   intake2.move(0);
@@ -453,6 +454,42 @@ void goforwardauton(){
 
   chassis.pid_drive_set(28_in, 60);
   chassis.pid_wait();
+
+  chassis.pid_turn_set(75_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  Piston22.set(true);
+
+  //intake2.move(0);
+
+  chassis.pid_drive_set(32_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-75_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  Piston11.set(false);
+
+  chassis.pid_drive_set(-4_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(15_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(0_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-44_in, DRIVE_SPEED);
+  chassis.pid_wait(); 
+
+  
+
+
+
+
+
+
+
 
 
 

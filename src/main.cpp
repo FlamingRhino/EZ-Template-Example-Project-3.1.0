@@ -1,6 +1,9 @@
 #include "main.h"
 #include "arm.cpp"
 
+
+int time_form_op_start = 0;
+
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
@@ -111,6 +114,7 @@ void autonomous() {
   chassis.drive_sensor_reset();               // Reset drive sensors to 0
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
   arm.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+  time_form_op_start = 0;
   ez::as::auton_selector.selected_auton_call();  // Calls selected auton from autonomous selector
   
 
@@ -186,6 +190,23 @@ while((place -200) < pos and (place + 200) > pos ){
 //NICKNICKNICKNICKNICKNICKNIKNICKNICK
 
 
+inline void clockthing(){
+    int timer = 0;
+    while (true) {
+
+      if (time_form_op_start == 87){
+        master.rumble("-.--.");
+      }
+      
+
+
+      pros::delay(1000);
+        
+  } 
+}
+
+
+
 
 
 
@@ -208,6 +229,14 @@ void opcontrol() {
   double error = 0.0;
   rotation_sensor.set_position(0);
   arm.tare_position();
+
+  int time_form_op_start = 0;
+  inline pros::Task clockthingg(clockthing);
+
+
+
+
+
 
 
   
