@@ -344,19 +344,17 @@ void blue_far_side(){
   pros::delay(500);
   intake2.move(0);
 
-  chassis.pid_drive_set(3_in, DRIVE_SPEED);
+  chassis.pid_drive_set(7_in, DRIVE_SPEED);
   chassis.pid_wait();
 
   chassis.pid_turn_set(-55_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-34_in, DRIVE_SPEED);
+  chassis.pid_drive_set(-32_in, DRIVE_SPEED);
   chassis.pid_wait();
-
+  chassis.pid_drive_set(-6_in, 80);
+  pros::delay(150);
   Piston11.set(true);
-  pros::delay(0);
-
-  chassis.pid_drive_set(-4_in, DRIVE_SPEED);
   chassis.pid_wait();
 
   chassis.pid_turn_set(-180_deg, TURN_SPEED);
@@ -370,30 +368,26 @@ void blue_far_side(){
   chassis.pid_turn_set(-270_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(4.5_in, DRIVE_SPEED);
+  chassis.pid_drive_set(10.5_in, DRIVE_SPEED);
   chassis.pid_wait();
 
   chassis.pid_turn_set(-250_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(12_in, DRIVE_SPEED);
+  chassis.pid_drive_set(6_in, DRIVE_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-12_in, DRIVE_SPEED);
+  chassis.pid_drive_set(-6_in, DRIVE_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_turn_set(90_deg, TURN_SPEED);
+  chassis.pid_turn_set(-280_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(13.5_in, DRIVE_SPEED);
+  chassis.pid_drive_set(6.5_in, DRIVE_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-14_in, DRIVE_SPEED);
+  chassis.pid_drive_set(-9.5_in, DRIVE_SPEED);
   chassis.pid_wait();
-
-  chassis.pid_drive_set(5.5_in, DRIVE_SPEED);
-  chassis.pid_wait();
-
   chassis.pid_turn_set(0_deg, TURN_SPEED);
   chassis.pid_wait();
 
@@ -436,8 +430,6 @@ void blue_far_side(){
 
 
 
-
-
 }
 
 
@@ -446,15 +438,28 @@ void blue_far_side(){
 
 void goforwardauton(){
 
-  chassis.pid_drive_set(-34, 60);
+  chassis.pid_drive_set(-34_in, 60);
   chassis.pid_wait();
 
   Piston11.set(true);
 
-  chassis.pid_drive_set(-8, 60);
+  chassis.pid_drive_set(-8_in, 60);
   chassis.pid_wait();
 
   intake2.move(127);
+
+  chassis.pid_turn_set(90_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(28_in, 60);
+  chassis.pid_wait();
+
+
+
+
+
+
+
 
 
 
