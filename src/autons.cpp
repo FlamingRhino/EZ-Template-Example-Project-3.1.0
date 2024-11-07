@@ -465,7 +465,10 @@ void goforwardauton(){
   chassis.pid_drive_set(41_in, DRIVE_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_turn_set(-25_deg, TURN_SPEED);
+  chassis.pid_turn_set(25_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(25_deg, TURN_SPEED);
   chassis.pid_wait();
 
   Piston11.set(false);
