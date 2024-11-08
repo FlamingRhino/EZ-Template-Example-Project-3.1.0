@@ -485,6 +485,16 @@ void goforwardauton(){
 */
 }
 
+void goalrush(){
+  chassis.pid_drive_set(-36_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-45, TURN_SPEED);
+  chassis.pid_wait();
+
+
+}
+
 
 
 void scillsauto(){
