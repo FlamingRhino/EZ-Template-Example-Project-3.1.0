@@ -497,6 +497,8 @@ void goalrush(){
 
   Piston11.set(true);
 
+  intake2.move(127);
+
   chassis.pid_turn_set(45, TURN_SPEED);
   chassis.pid_wait();
 
