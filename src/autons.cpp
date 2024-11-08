@@ -486,13 +486,13 @@ void goforwardauton(){
 }
 
 void goalrush(){
-  chassis.pid_drive_set(-36_in, DRIVE_SPEED);
+  chassis.pid_drive_set(-34_in, DRIVE_SPEED);
   chassis.pid_wait();
 
   chassis.pid_turn_set(-45, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-10_in, DRIVE_SPEED);
+  chassis.pid_drive_set(-12_in, DRIVE_SPEED);
   chassis.pid_wait();
 
   Piston11.set(true);
