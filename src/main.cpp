@@ -281,7 +281,7 @@ void opcontrol() {
 
       }else if (armcurrentpos  == 0){
 
-        armPID.target_set(115);
+        armPID.target_set(300);
         target = -500;
         armcurrentpos = 1;
 
