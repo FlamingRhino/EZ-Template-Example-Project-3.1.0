@@ -16,8 +16,8 @@
   inline ez::Piston Piston22('B');
   //{port1,port2} put a - to revese 
   //INLINE
-  inline pros::MotorGroup intake2({-7,17});
-  inline pros::Motor arm(16);
+  inline pros::Motor intake2(7);
+  inline pros::Motor arm(-1);
 
 
 // inline pros::Motor intake(1);

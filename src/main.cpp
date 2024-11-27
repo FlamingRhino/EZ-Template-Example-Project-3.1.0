@@ -12,7 +12,7 @@ int time_form_op_start = 0;
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {-10, 9, -8},     // Left Chassis Ports (negative port will reverse it!)
+    {-10, 9, -21},     // Left Chassis Ports (negative port will reverse it!)
     {20, -19, 18},  // Right Chassis Ports (negative port will reverse it!)
 
     5,      // IMU Port
@@ -281,7 +281,7 @@ void opcontrol() {
 
       }else if (armcurrentpos  == 0){
 
-        armPID.target_set(400);
+        armPID.target_set(115);
         target = -500;
         armcurrentpos = 1;
 
