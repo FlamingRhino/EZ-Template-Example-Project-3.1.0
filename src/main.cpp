@@ -45,6 +45,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+      Auton("BLUe RGIHT SIDE AHAHAHAHAHAHAHHAHAHAHAHAHHHA AWP you can also use this on the left red side", blue_right_awp),
+      Auton("RED RIGHT SIDE AHAHAHAHAHAHAHHAHAHAHAHAHHHA AWP you can also use this on the left blue side" , red_right_awp),
       Auton("skills code which might work, SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS", scillsauto),
       Auton("red far side but also work with RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED ", red_far_side),
       Auton("Blue far side, get most of win point BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE", blue_far_side),
@@ -234,6 +236,10 @@ void opcontrol() {
   int time_form_op_start = 0;
   pros::Task clockthingg(clockthing);
 
+  int randomscare = 0;
+
+  srand(static_cast<unsigned int>(time(0)));
+
 
 
 
@@ -353,6 +359,19 @@ void opcontrol() {
     // . . .
 
             //arm.move(armPID.compute(rotation_sensor.get_angle()));
+
+
+            if (!pros::competition::is_connected()) {
+
+              randomscare = rand() % 35000 + 1;
+
+              if (randomscare == 3){
+
+                master.rumble("-");
+                
+              }
+            }
+
 
     
 

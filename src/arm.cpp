@@ -8,6 +8,9 @@ inline void armtask(){
         //arm.move(armPID.compute(rotation_sensor.get_angle()));
 
 
+        arm.move(armPID.compute(arm.get_position()));
+
+
         pros::delay(20);
         
   } 

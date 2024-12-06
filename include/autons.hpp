@@ -17,6 +17,8 @@ void blue_far_side();
 void scillsauto();
 void goforwardauton();
 void goalrush();
+void red_right_awp();
+void blue_right_awp();
 
 
 void default_constants();
