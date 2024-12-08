@@ -45,9 +45,9 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+     Auton("skills code which might work, SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS", scillsauto),
       Auton("BLUe RGIHT SIDE AHAHAHAHAHAHAHHAHAHAHAHAHHHA AWP you can also use this on the left red side", blue_right_awp),
       Auton("RED RIGHT SIDE AHAHAHAHAHAHAHHAHAHAHAHAHHHA AWP you can also use this on the left blue side" , red_right_awp),
-      Auton("skills code which might work, SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS", scillsauto),
       Auton("red far side but also work with RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED ", red_far_side),
       Auton("Blue far side, get most of win point BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE", blue_far_side),
       Auton("go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward", goforwardauton),
@@ -74,6 +74,8 @@ void initialize() {
   armPID.exit_condition_set(80, 50, 300, 150, 500, 500);
  // arm.tare_position();
   arm.tare_position();
+
+
 
 
 }
@@ -241,7 +243,7 @@ void opcontrol() {
   srand(static_cast<unsigned int>(time(0)));
 
 
-
+  int count = 0;
 
 
 
@@ -255,7 +257,36 @@ void opcontrol() {
     // After you find values that you're happy with, you'll have to set them in auton.cpp
     //left_wing.button_toggle(master.get_digital(DIGITAL_X));
 
-      error = target - rotation_sensor.get_angle();
+    if (!pros::competition::is_connected()) {
+      // Enable / Disable PID Tuner
+      //  When enabled:
+      //  * use A and Y to increment / decrement the constants
+      //  * use the arrow keys to navigate the constants
+      if (master.get_digital_new_press(DIGITAL_X))
+        chassis.pid_tuner_toggle();
+
+
+      // Trigger the selected autonomous routine
+      if (master.get_digital(DIGITAL_B) && master.get_digital(DIGITAL_DOWN)) {
+        autonomous();
+        chassis.drive_brake_set(MOTOR_BRAKE_HOLD);
+      }
+
+      chassis.pid_tuner_iterate();  // Allow PID Tuner to iterate
+    }
+
+    //chassis.opcontrol_tank();  // Tank control
+    chassis.opcontrol_arcade_standard(ez::SPLIT);   // Standard split arcade
+    // chassis.opcontrol_arcade_standard(ez::SINGLE);  // Standard single arcade
+    // chassis.opcontrol_arcade_flipped(ez::SPLIT);    // Flipped split arcade
+    // chassis.opcontrol_arcade_flipped(ez::SINGLE);   // Flipped single arcade
+
+    // . . .
+    // Put more user control code here!
+    // . . .
+
+
+          error = target - rotation_sensor.get_angle();
      //arm.move(armPID.compute_error(error, arm.get_position()));
       arm.move(armPID.compute(arm.get_position()));
     //pistons-upersimple
@@ -329,35 +360,6 @@ void opcontrol() {
     
 
 
-
-    if (!pros::competition::is_connected()) {
-      // Enable / Disable PID Tuner
-      //  When enabled:
-      //  * use A and Y to increment / decrement the constants
-      //  * use the arrow keys to navigate the constants
-      if (master.get_digital_new_press(DIGITAL_Y))
-        chassis.pid_tuner_toggle();
-
-
-      // Trigger the selected autonomous routine
-      if (master.get_digital(DIGITAL_B) && master.get_digital(DIGITAL_DOWN)) {
-        autonomous();
-        chassis.drive_brake_set(MOTOR_BRAKE_HOLD);
-      }
-
-      chassis.pid_tuner_iterate();  // Allow PID Tuner to iterate
-    }
-
-    //chassis.opcontrol_tank();  // Tank control
-    chassis.opcontrol_arcade_standard(ez::SPLIT);   // Standard split arcade
-    // chassis.opcontrol_arcade_standard(ez::SINGLE);  // Standard single arcade
-    // chassis.opcontrol_arcade_flipped(ez::SPLIT);    // Flipped split arcade
-    // chassis.opcontrol_arcade_flipped(ez::SINGLE);   // Flipped single arcade
-
-    // . . .
-    // Put more user control code here!
-    // . . .
-
             //arm.move(armPID.compute(rotation_sensor.get_angle()));
 
 
@@ -372,8 +374,12 @@ void opcontrol() {
               }
             }
 
-
     
+    if (!(count % 25)) {
+      // Only print every 50ms, the controller text update rate is slow
+      master.print(1, 0, "Heading: %f", chassis.drive_imu_get());
+    }
+    count++;
 
 
     
