@@ -262,7 +262,7 @@ void opcontrol() {
       //  When enabled:
       //  * use A and Y to increment / decrement the constants
       //  * use the arrow keys to navigate the constants
-      if (master.get_digital_new_press(DIGITAL_X))
+      if (master.get_digital_new_press(DIGITAL_y))
         chassis.pid_tuner_toggle();
 
 
