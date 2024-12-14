@@ -45,13 +45,13 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+    Auton("goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush", goalrush),
      Auton("skills code which might work, SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS", scillsauto),
       Auton("BLUe RGIHT SIDE AHAHAHAHAHAHAHHAHAHAHAHAHHHA AWP you can also use this on the left red side", blue_right_awp),
       Auton("RED RIGHT SIDE AHAHAHAHAHAHAHHAHAHAHAHAHHHA AWP you can also use this on the left blue side" , red_right_awp),
       Auton("red far side but also work with RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED ", red_far_side),
       Auton("Blue far side, get most of win point BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE", blue_far_side),
       Auton("go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward", goforwardauton),
-      Auton("goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush", goalrush),
       Auton("PID loop test code to move up one foot and turn around and come back", drive_example),
       Auton("Example Turn\n\nTurn 3 times.", turn_example),
       Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
@@ -262,7 +262,7 @@ void opcontrol() {
       //  When enabled:
       //  * use A and Y to increment / decrement the constants
       //  * use the arrow keys to navigate the constants
-      if (master.get_digital_new_press(DIGITAL_y))
+      if (master.get_digital_new_press(DIGITAL_Y))
         chassis.pid_tuner_toggle();
 
 
@@ -292,7 +292,7 @@ void opcontrol() {
     //pistons-upersimple
     Piston11.buttons(master.get_digital(DIGITAL_R1), master.get_digital(DIGITAL_R2));
     Piston22.buttons(master.get_digital(DIGITAL_UP), master.get_digital(DIGITAL_DOWN));
-
+    Sorter.button_toggle(master.get_digital(DIGITAL_RIGHT));
 
     //intake code
         
@@ -365,7 +365,7 @@ void opcontrol() {
 
             if (!pros::competition::is_connected()) {
 
-              randomscare = rand() % 35000 + 1;
+              randomscare = rand() % 1000000 + 1;
 
               if (randomscare == 3){
 
