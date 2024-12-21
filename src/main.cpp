@@ -33,7 +33,7 @@ void initialize() {
 
   // Configure your chassis controls
   chassis.opcontrol_curve_buttons_toggle(false);  // Enables modifying the controller curve with buttons on the joysticks
-  chassis.opcontrol_drive_activebrake_set(0);    // Sets the active brake kP. We recommend ~2.  0 will disable.
+  chassis.opcontrol_drive_activebrake_set(2);    // Sets the active brake kP. We recommend ~2.  0 will disable.
   chassis.opcontrol_curve_default_set(2.1, 4.3);    // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)
 
   // Set the drive to your own constants from autons.cpp!
@@ -45,10 +45,13 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+    
+    Auton("BLUe RGIHT SIDE AWPAWPAWPAWPAWPAWPAWPAWP AWP you can also use this on the left red side", blue_right_awp),
+    Auton("RED RIGHT SIDE AWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWP BLUEBLUEBLUEBLUEBLUEBLUEBLUEBLUEBLUE AWP you can also use this on the left blue side" , red_right_awp),
     Auton("goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush", goalrush),
+    Auton("blue side goal rush This is the stake code for the blue side should work  ", goalrushblue),
      Auton("skills code which might work, SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS", scillsauto),
-      Auton("BLUe RGIHT SIDE AHAHAHAHAHAHAHHAHAHAHAHAHHHA AWP you can also use this on the left red side", blue_right_awp),
-      Auton("RED RIGHT SIDE AHAHAHAHAHAHAHHAHAHAHAHAHHHA AWP you can also use this on the left blue side" , red_right_awp),
+     Auton("thia will start skills at the back side, shoud work", skillptwo),
       Auton("red far side but also work with RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED ", red_far_side),
       Auton("Blue far side, get most of win point BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE", blue_far_side),
       Auton("go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward", goforwardauton),
@@ -292,7 +295,7 @@ void opcontrol() {
     //pistons-upersimple
     Piston11.buttons(master.get_digital(DIGITAL_R1), master.get_digital(DIGITAL_R2));
     Piston22.buttons(master.get_digital(DIGITAL_UP), master.get_digital(DIGITAL_DOWN));
-    Sorter.button_toggle(master.get_digital(DIGITAL_RIGHT));
+   // Sorter.button_toggle(master.get_digital(DIGITAL_RIGHT));
 
     //intake code
         
@@ -335,27 +338,15 @@ void opcontrol() {
       armcurrentpos = 0;
 
     }
-  
-////// this is the maunel arm code 
-//  up
-/*
-    if (master.get_digital(DIGITAL_X)){
-      //up
-      arm.move(armspeed);
-    }else if(master.get_digital(DIGITAL_B)){
-      //down
-      arm.move(-1 * armspeed);
-    }else{
-      //stop
-     // arm.move(10);
-    }
+
 
     if (master.get_digital(DIGITAL_A)){
-      armspeed = 40;
-    }else{
-      armspeed = 127;
+
+      armPID.target_set(1850);
+    
     }
-    */
+
+      
 
     
 

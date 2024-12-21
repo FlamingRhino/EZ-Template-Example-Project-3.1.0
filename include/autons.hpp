@@ -19,6 +19,8 @@ void goforwardauton();
 void goalrush();
 void red_right_awp();
 void blue_right_awp();
+void skillptwo();
+void goalrushblue();
 
 
 void default_constants();
