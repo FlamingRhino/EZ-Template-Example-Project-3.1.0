@@ -1,5 +1,6 @@
 #include "main.h"
 #include "arm.cpp"
+#include "colors.cpp"
 
 
 int time_form_op_start = 0;
@@ -12,7 +13,7 @@ int time_form_op_start = 0;
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {-10, 9, -21},     // Left Chassis Ports (negative port will reverse it!)
+    {-10, 9, -17},     // Left Chassis Ports (negative port will reverse it!)
     {20, -19, 18},  // Right Chassis Ports (negative port will reverse it!)
 
     5,      // IMU Port
@@ -248,6 +249,12 @@ void opcontrol() {
 
   int count = 0;
 
+  Color.set_led_pwm(100);
+
+  pros::Task colorTASK(colortask);
+
+
+
 
 
 
@@ -368,9 +375,12 @@ void opcontrol() {
     
     if (!(count % 25)) {
       // Only print every 50ms, the controller text update rate is slow
-      master.print(1, 0, "Heading: %f", chassis.drive_imu_get());
+      //master.print(1, 0, "Heading: %f", chassis.drive_imu_get());
     }
     count++;
+
+
+    
 
 
     
