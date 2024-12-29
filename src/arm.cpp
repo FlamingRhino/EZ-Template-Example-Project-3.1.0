@@ -2,24 +2,24 @@
 #include "subsystems.hpp"
 
  inline ez::PID armPID{0.45, 0, 0, 0, "armp"};
- 
+
  inline void armtask(){
 
-    
-    while (true) {
-        //arm.move(armPID.compute(rotation_sensor.get_angle()));
+    pros::delay(2000);  // Set EZ-Template calibrate before this function starts running
+   while (true) {
+      set_lift(armPID.compute(l_arm.get_position()));
 
+      pros::delay(ez::util::DELAY_TIME);
+    }
 
-        
-
-        l_arm.move(armPID.compute(l_arm.get_position()));
-        r_arm.move(armPID.compute(l_arm.get_position()));
-
-
-        pros::delay(20);
-        
-  } 
 }
+
+
+inline void set_lift(int input) {
+  l_arm.move(input);
+  r_arm.move(input);
+}
+
 
 
 

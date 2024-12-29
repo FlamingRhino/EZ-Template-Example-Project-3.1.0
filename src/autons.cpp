@@ -228,22 +228,22 @@ void red_right_awp(){
   int i = 0;
   armPID.target_set(1845);
   while (i < 400){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
-  arm.move(armPID.compute(arm.get_position()));
+  //arm.move(armPID.compute(arm.get_position()));
 
   chassis.pid_turn_set(-45_deg, TURN_SPEED);
 
   i = 0;
   armPID.target_set(40);
   while (i < 300){
-    arm.move(armPID.compute(arm.get_position()));
+   // arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
-  arm.move(armPID.compute(arm.get_position()));
+  //arm.move(armPID.compute(arm.get_position()));
 
   chassis.pid_wait();
 
@@ -266,11 +266,11 @@ void red_right_awp(){
   armPID.target_set(1700);
 
     while (i < 300){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
-  arm.move(armPID.compute(arm.get_position()));
+ // arm.move(armPID.compute(arm.get_position()));
 
   chassis.pid_wait();
 
@@ -283,7 +283,7 @@ void red_right_awp(){
   armPID.target_set(40);
 
     while (i < 300){
-    arm.move(armPID.compute(arm.get_position()));
+   // arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
@@ -333,31 +333,31 @@ void blue_right_awp(){
   int i = 0;
   armPID.target_set(1845);
   while (i < 400){
-    arm.move(armPID.compute(arm.get_position()));
+  //  arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
-  arm.move(armPID.compute(arm.get_position()));
+  //arm.move(armPID.compute(arm.get_position()));
 
 
     armPID.target_set(40);
   while (i < 800){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
-  arm.move(armPID.compute(arm.get_position()));
+  //arm.move(armPID.compute(arm.get_position()));
 
   chassis.pid_turn_set(45_deg, TURN_SPEED);
 
   i = 0;
   armPID.target_set(40);
   while (i < 300){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
-  arm.move(armPID.compute(arm.get_position()));
+  //arm.move(armPID.compute(arm.get_position()));
 
   chassis.pid_wait();
 
@@ -380,11 +380,11 @@ void blue_right_awp(){
   armPID.target_set(1700);
 
     while (i < 300){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
-  arm.move(armPID.compute(arm.get_position()));
+  //arm.move(armPID.compute(arm.get_position()));
 
   chassis.pid_wait();
 
@@ -397,7 +397,7 @@ void blue_right_awp(){
   armPID.target_set(40);
 
     while (i < 350){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
@@ -452,7 +452,7 @@ void goalrushblue(){
 
   armPID.target_set(1300);
   while (i < 300){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
@@ -464,7 +464,7 @@ void goalrushblue(){
 
   armPID.target_set(1600);
   while (i < 300){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
@@ -476,7 +476,7 @@ void goalrushblue(){
 
   armPID.target_set(40);
   while (i < 400){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
@@ -498,7 +498,7 @@ void goalrushblue(){
 
   armPID.target_set(1700);
   while (i < 400){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
@@ -563,7 +563,7 @@ void goalrush(){
 
   armPID.target_set(1300);
   while (i < 300){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
@@ -575,7 +575,7 @@ void goalrush(){
 
   armPID.target_set(1600);
   while (i < 300){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
@@ -590,7 +590,7 @@ void goalrush(){
 
   armPID.target_set(40);
   while (i < 400){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
@@ -612,7 +612,7 @@ void goalrush(){
 
   armPID.target_set(1750);
   while (i < 400){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
@@ -747,7 +747,7 @@ void skillptwo(){
 
   armPID.target_set(1600);
   while (i < 300){
-    arm.move(armPID.compute(arm.get_position()));
+    
     pros::delay(2);
     i++;
   }
@@ -773,7 +773,7 @@ void scillsauto(){
   i = 0;
   armPID.target_set(1850);
   while (i < 400){
-    arm.move(armPID.compute(arm.get_position()));
+    //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
@@ -785,7 +785,7 @@ void scillsauto(){
   i = 0;
   armPID.target_set(40);
   while (i < 300){
-    arm.move(armPID.compute(arm.get_position()));
+   // arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
     i++;
   }
@@ -928,7 +928,7 @@ void scillsauto(){
   chassis.pid_drive_set(10_in, 70);
   chassis.pid_wait();
  
-  arm.move(armPID.compute(arm.get_position()));
+  //arm.move(armPID.compute(arm.get_position()));
 
   chassis.pid_turn_set(-90, TURN_SPEED);
   chassis.pid_wait();
