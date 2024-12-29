@@ -292,14 +292,14 @@ void opcontrol() {
       //pos 2    
       if (armcurrentpos  ==  1){
 
-        armPID.target_set(650);
+        armPID.target_set(1600);
         target = 0;
         armcurrentpos = 0;
         
 
       }else if (armcurrentpos  == 0){
 
-        armPID.target_set(110);
+        armPID.target_set(275);
         target = -500;
         armcurrentpos = 1;
 
@@ -310,7 +310,7 @@ void opcontrol() {
     //resting place for arm
     if (master.get_digital(DIGITAL_B)){
 
-      armPID.target_set(10);
+      armPID.target_set(20);
       target = 115;
       
       armcurrentpos = 0;
