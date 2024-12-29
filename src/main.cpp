@@ -77,7 +77,7 @@ void initialize() {
 
   armPID.exit_condition_set(80, 50, 300, 150, 500, 500);
  // arm.tare_position();
-  arm.tare_position();
+  l_arm.tare_position();
 
 
 
@@ -122,7 +122,8 @@ void autonomous() {
   chassis.drive_imu_reset();                  // Reset gyro position to 0
   chassis.drive_sensor_reset();               // Reset drive sensors to 0
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
-  arm.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+  l_arm.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+  r_arm.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
   time_form_op_start = 0;
   ez::as::auton_selector.selected_auton_call();  // Calls selected auton from autonomous selector
   
@@ -167,35 +168,7 @@ void nicksl2thing(){
     }
 }
 //super abd code tht does not work
-void turnarmtoplace(float place){
-  float pos = rotation_sensor.get_angle();
-while((place -200) < pos and (place + 200) > pos ){
-  if ((place -200) < pos){
-    
-    while((place -200) > pos){
-      
-      arm.move(100);
-      pros::delay(10);
-      float pos = rotation_sensor.get_angle();
-    }
 
-  }
-  if (pos  > (place +200)){
-      while (pos > (place +200)){
-        arm.move(-100);
-        pros::delay(10);
-        float pos = rotation_sensor.get_angle();
-      }
-      
-        
-    }
-  }
-
-  arm.brake();
-
-}
-
-//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 //NICKNICKNICKNICKNICKNICKNIKNICKNICK
 
 
@@ -237,7 +210,6 @@ void opcontrol() {
   double target = 0.0;
   double error = 0.0;
   rotation_sensor.set_position(0);
-  arm.tare_position();
 
   int time_form_op_start = 0;
   pros::Task clockthingg(clockthing);
@@ -298,7 +270,6 @@ void opcontrol() {
 
           error = target - rotation_sensor.get_angle();
      //arm.move(armPID.compute_error(error, arm.get_position()));
-      arm.move(armPID.compute(arm.get_position()));
     //pistons-upersimple
     Piston11.buttons(master.get_digital(DIGITAL_R1), master.get_digital(DIGITAL_R2));
     Piston22.buttons(master.get_digital(DIGITAL_UP), master.get_digital(DIGITAL_DOWN));
@@ -321,14 +292,14 @@ void opcontrol() {
       //pos 2    
       if (armcurrentpos  ==  1){
 
-        armPID.target_set(1600);
+        armPID.target_set(650);
         target = 0;
         armcurrentpos = 0;
         
 
       }else if (armcurrentpos  == 0){
 
-        armPID.target_set(275);
+        armPID.target_set(110);
         target = -500;
         armcurrentpos = 1;
 
@@ -339,7 +310,7 @@ void opcontrol() {
     //resting place for arm
     if (master.get_digital(DIGITAL_B)){
 
-      armPID.target_set(40);
+      armPID.target_set(10);
       target = 115;
       
       armcurrentpos = 0;
