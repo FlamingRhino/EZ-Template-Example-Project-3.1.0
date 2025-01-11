@@ -8,7 +8,7 @@
 
 inline void colortask(){
 
-  bool onred = true;
+  bool onred = false;
   int count = 0;
   bool ison = true;
   int onoff = 0;

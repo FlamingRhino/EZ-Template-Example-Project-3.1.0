@@ -229,14 +229,6 @@ void opcontrol() {
   pros::Task colorTASK(colortask);
 
 
-
-
-
-
-  
-
-
-
   while (true) {
     // PID Tuner
     // After you find values that you're happy with, you'll have to set them in auton.cpp
