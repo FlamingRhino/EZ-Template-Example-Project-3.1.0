@@ -1,8 +1,8 @@
 #pragma once
 
 #include "EZ-Template/drive/drive.hpp"
-
 extern Drive chassis;
+
 
 void drive_example();
 void turn_example();
@@ -21,6 +21,8 @@ void red_right_awp();
 void blue_right_awp();
 void skillptwo();
 void goalrushblue();
-
+void goodskillcode();
+void  skillaurtopart2();
+void sigawp();
 
 void default_constants();

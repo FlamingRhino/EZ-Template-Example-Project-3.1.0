@@ -1,5 +1,5 @@
 #pragma once
-
+#include "EZ-Template/api.hpp"
 #include "api.h"
 
 // Your motors, sensors, etc. should go here.  Below are examples

@@ -46,7 +46,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-    
+    Auton("aawwwpppw", sigawp),
+    Auton("Skills skills jojooppopojojoppjojoppojojpjopojpopopojopjpopopjo", goodskillcode),
     Auton("BLUe RGIHT SIDE AWPAWPAWPAWPAWPAWPAWPAWP AWP you can also use this on the left red side", blue_right_awp),
     Auton("RED RIGHT SIDE AWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWP BLUEBLUEBLUEBLUEBLUEBLUEBLUEBLUEBLUE AWP you can also use this on the left blue side" , red_right_awp),
     Auton("goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush", goalrush),
@@ -75,9 +76,11 @@ void initialize() {
   //my random stuff
 
 
-  armPID.exit_condition_set(80, 50, 300, 150, 500, 500);
+//  armPID.exit_condition_set(80, 50, 300, 150, 500, 500);
  // arm.tare_position();
-  l_arm.tare_position();
+ // l_arm.tare_position();
+//
+
 
 
 

@@ -1,17 +1,25 @@
-#include "main.h"
+#include "autons.hpp"
+#include <stdio.h>
 #include "arm.cpp"
+#include "pros/rtos.hpp"
+#include "subsystems.hpp"
 
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
 /////
 
+//overshoot turns by 12 inches
+
 // These are out of 127
+
+
 const int DRIVE_SPEED = 110;
 const int TURN_SPEED = 70;
 const int SWING_SPEED = 90;
 
-///
+
+
 // Constants
 ///
 void default_constants() {
@@ -34,6 +42,215 @@ void default_constants() {
 ///
 // Drive Example
 ///
+
+
+void sigawp(){
+  armPID.target_set(1900);
+  pros::delay(500);
+  armPID.target_set(5);
+
+  chassis.pid_drive_set(-10,DRIVE_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(56_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-20,DRIVE_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-12,50);
+  chassis.pid_wait();
+
+  Piston11.set(true);
+  intake2.move(127);
+
+    pros::delay(50);
+
+    chassis.pid_turn_set(150_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+    chassis.pid_drive_set(24,DRIVE_SPEED);
+  chassis.pid_wait();
+
+      chassis.pid_turn_set(355_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  Piston22.set(true);
+  chassis.pid_drive_set(32,DRIVE_SPEED);
+  
+
+  
+  armPID.target_set(1700);
+
+  chassis.pid_wait();
+
+  
+    chassis.pid_drive_set(20,30);
+  chassis.pid_wait();
+
+  Piston11.set(false);
+    Piston22.set(false);
+  armPID.target_set(10);
+
+  
+  chassis.pid_turn_set(-250_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-30,DRIVE_SPEED);
+  chassis.pid_wait();
+
+    chassis.pid_drive_set(-10,50);
+  chassis.pid_wait();
+
+
+  Piston11.set(true);
+
+
+    pros::delay(100);
+
+  chassis.drive_imu_reset(0);
+
+  chassis.pid_turn_set(-135_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+    chassis.pid_drive_set(34,DRIVE_SPEED);
+  chassis.pid_wait();
+
+      chassis.pid_drive_set(-34,DRIVE_SPEED);
+  chassis.pid_wait();
+
+  
+}
+
+
+ void goodskillcode(){
+
+    chassis.pid_drive_set(-25,50);
+    chassis.pid_wait();
+
+        Piston11.set(true);
+
+
+    pros::delay(100 );
+
+        chassis.pid_drive_set(5,DRIVE_SPEED);
+    chassis.pid_wait();
+
+    chassis.pid_turn_set(-110_deg, TURN_SPEED);
+    chassis.pid_wait();
+
+    intake2.move(127);
+
+    chassis.pid_drive_set(29,DRIVE_SPEED);
+    chassis.pid_wait();
+
+
+    chassis.pid_turn_set(-220_deg, TURN_SPEED);
+    chassis.pid_wait();
+
+    chassis.pid_drive_set(27,DRIVE_SPEED);
+    chassis.pid_wait();
+
+        chassis.pid_turn_set(-305_deg, TURN_SPEED);
+    chassis.pid_wait();
+
+        chassis.pid_drive_set(34,DRIVE_SPEED);
+    chassis.pid_wait();
+
+    chassis.pid_turn_set(-170_deg, TURN_SPEED);
+    chassis.pid_wait();
+
+    chassis.pid_drive_set(16,DRIVE_SPEED);
+    chassis.pid_wait();
+
+        chassis.pid_drive_set(-9,DRIVE_SPEED);
+    chassis.pid_wait();
+
+        chassis.pid_turn_set(-80,TURN_SPEED);
+    chassis.pid_wait();
+
+    chassis.pid_drive_set(-13,DRIVE_SPEED);
+    chassis.pid_wait();
+
+    chassis.pid_drive_set(10 ,DRIVE_SPEED);
+    pros::delay(50);
+    Piston11.set(false);
+    chassis.pid_wait();
+
+    chassis.pid_turn_set(150_deg, TURN_SPEED);
+    chassis.pid_wait();
+
+    chassis.pid_drive_set(-80,DRIVE_SPEED);
+    chassis.pid_wait();
+
+    Piston11.set(true);
+
+    skillaurtopart2();
+    
+
+
+}
+
+void skillaurtopart2(){
+
+    chassis.pid_turn_set(-110_deg, TURN_SPEED);
+    chassis.pid_wait();
+
+    intake2.move(127);
+
+    chassis.pid_drive_set(29,DRIVE_SPEED);
+    chassis.pid_wait();
+
+
+    chassis.pid_turn_set(220_deg, TURN_SPEED);
+    chassis.pid_wait();
+
+    chassis.pid_drive_set(27,DRIVE_SPEED);
+    chassis.pid_wait();
+
+        chassis.pid_turn_set(305_deg, TURN_SPEED);
+    chassis.pid_wait();
+
+        chassis.pid_drive_set(34,DRIVE_SPEED);
+    chassis.pid_wait();
+
+    chassis.pid_turn_set(170_deg, TURN_SPEED);
+    chassis.pid_wait();
+
+    chassis.pid_drive_set(16,DRIVE_SPEED);
+    chassis.pid_wait();
+
+        chassis.pid_drive_set(-9,DRIVE_SPEED);
+    chassis.pid_wait();
+
+        chassis.pid_turn_set(80,TURN_SPEED);
+    chassis.pid_wait();
+
+    chassis.pid_drive_set(-13,DRIVE_SPEED);
+    chassis.pid_wait();
+
+    chassis.pid_drive_set(-10 ,DRIVE_SPEED);
+    pros::delay(50);
+    Piston11.set(false);
+    chassis.pid_wait();
+
+    chassis.pid_turn_set(150_deg, TURN_SPEED);
+    chassis.pid_wait();
+
+    chassis.pid_drive_set(-80,DRIVE_SPEED);
+    chassis.pid_wait();
+
+    Piston11.set(true);
+
+    skillaurtopart2();
+    
+
+
+}
+
+
+
+
 void drive_example() {
   // The first parameter is target inches
   // The second parameter is max speed the robot will drive at
