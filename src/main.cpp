@@ -34,7 +34,7 @@ void initialize() {
 
   // Configure your chassis controls
   chassis.opcontrol_curve_buttons_toggle(false);  // Enables modifying the controller curve with buttons on the joysticks
-  chassis.opcontrol_drive_activebrake_set(2);    // Sets the active brake kP. We recommend ~2.  0 will disable.
+  chassis.opcontrol_drive_activebrake_set(0);    // Sets the active brake kP. We recommend ~2.  0 will disable.
   chassis.opcontrol_curve_default_set(2.1, 4.3);    // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)
 
   // Set the drive to your own constants from autons.cpp!
@@ -46,8 +46,10 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+    Auton("Skills skills 3333333333333333333333333333333333333333333333", skillautonpart3),
+      Auton("Skills skills jojooppopojojoppjojoppojojpjopojpopopojopjpopopjo", goodskillcode),
+      Auton("Skills skills part 222222222222", skillaurtopart2),
     Auton("aawwwpppw", sigawp),
-    Auton("Skills skills jojooppopojojoppjojoppojojpjopojpopopojopjpopopjo", goodskillcode),
     Auton("BLUe RGIHT SIDE AWPAWPAWPAWPAWPAWPAWPAWP AWP you can also use this on the left red side", blue_right_awp),
     Auton("RED RIGHT SIDE AWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWP BLUEBLUEBLUEBLUEBLUEBLUEBLUEBLUEBLUE AWP you can also use this on the left blue side" , red_right_awp),
     Auton("goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush", goalrush),
@@ -344,6 +346,11 @@ void opcontrol() {
       //master.print(1, 0, "Heading: %f", chassis.drive_imu_get());
     }
     count++;
+
+        if (ez::as::page_blank_is_on(0)) {
+         ez::screen_print("facing: " + util::to_string_with_precision( chassis.drive_imu_get()), 1);
+    }
+
 
 
     

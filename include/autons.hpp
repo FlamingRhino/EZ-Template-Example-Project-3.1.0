@@ -24,5 +24,6 @@ void goalrushblue();
 void goodskillcode();
 void  skillaurtopart2();
 void sigawp();
+void skillautonpart3();
 
 void default_constants();
