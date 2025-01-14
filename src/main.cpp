@@ -46,6 +46,7 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+    Auton("mogorushfun mogorushfun mogorushfun", mogorushfun),
     Auton("Skills skills 3333333333333333333333333333333333333333333333", skillautonpart3),
       Auton("Skills skills jojooppopojojoppjojoppojojpjopojpopopojopjpopopjo", goodskillcode),
       Auton("Skills skills part 222222222222", skillaurtopart2),

@@ -25,5 +25,6 @@ void goodskillcode();
 void  skillaurtopart2();
 void sigawp();
 void skillautonpart3();
+void mogorushfun();
 
 void default_constants();

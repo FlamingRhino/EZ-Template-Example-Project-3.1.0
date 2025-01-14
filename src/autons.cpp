@@ -44,6 +44,22 @@ void default_constants() {
 ///
 
 
+void mogorushfun(){
+  chassis.pid_drive_set(34_in, 127);
+  chassis.pid_wait_quick_chain();
+  Piston22.set(true);
+  chassis.pid_drive_set(-24_in, 127);
+  chassis.pid_wait_quick_chain();
+}
+
+void sigawpmirrored(){
+  chassis.odom_x_flip();
+  chassis.odom_theta_flip();
+  sigawp(); 
+
+}
+
+
 void sigawp(){
   Piston11.set(false);
   armPID.target_set(1845);
@@ -322,13 +338,15 @@ void skillaurtopart2(){
     chassis.pid_drive_set(-13.5,DRIVE_SPEED);
     chassis.pid_wait();
 
-  
+
+
+  skillautonpart3();
 
 }
 
 void skillautonpart3(){
-   intake2.move(127);
-  armPID.target_set(300);
+   intake2.move(40);
+  armPID.target_set(10);
   chassis.drive_imu_reset(90);
 
     chassis.pid_turn_set(90, TURN_SPEED, shortest);
@@ -339,30 +357,30 @@ void skillautonpart3(){
     chassis.pid_wait();
 
 
-    chassis.pid_drive_set(25,DRIVE_SPEED);
+    chassis.pid_drive_set(25,DRIVE_SPEED,true);
     chassis.pid_wait();
 
     chassis.pid_turn_set(270, TURN_SPEED, shortest);
     chassis.pid_wait();
 
-    armPID.target_set(730);
+   // armPID.target_set(730);
 
-    intake2.move(0);
+    //intake2.move(0);
 
-    chassis.pid_drive_set(26,DRIVE_SPEED);
+    chassis.pid_drive_set(26,DRIVE_SPEED,true);
     pros::delay(175);
-        intake2.move(45);
+        intake2.move(30);
     chassis.pid_wait();
 
-    chassis.pid_turn_set(135, TURN_SPEED, shortest);
+    chassis.pid_turn_set(135, DRIVE_SPEED, shortest);
     chassis.pid_wait();
 
     intake2.move(0);
 
-    chassis.pid_drive_set(-17,DRIVE_SPEED);
+    chassis.pid_drive_set(-17,DRIVE_SPEED, true);
     chassis.pid_wait_quick_chain();
 
-    chassis.pid_drive_set(-18,50);
+    chassis.pid_drive_set(-18,DRIVE_SPEED,true);
     chassis.pid_wait();
 
     
@@ -374,35 +392,87 @@ void skillautonpart3(){
     chassis.pid_turn_set(220, TURN_SPEED, shortest);
     chassis.pid_wait();
 
-    chassis.pid_drive_set(36,DRIVE_SPEED);
+    chassis.pid_drive_set(36,DRIVE_SPEED,true);
     chassis.pid_wait();
 
     chassis.pid_turn_set(270, TURN_SPEED, shortest);
     chassis.pid_wait();
 
-    chassis.pid_drive_set(20 ,DRIVE_SPEED);
+    chassis.pid_drive_set(20 ,DRIVE_SPEED,true);
+    chassis.pid_wait();
+        pros::delay(100);
+    chassis.pid_turn_set(220, TURN_SPEED, shortest);
     chassis.pid_wait();
 
-    chassis.pid_turn_set(210, TURN_SPEED, shortest);
+    chassis.pid_drive_set(25 ,DRIVE_SPEED,true);  
+
     chassis.pid_wait();
 
-    chassis.pid_drive_set(27 ,DRIVE_SPEED);
+        pros::delay(300);
+
+    chassis.pid_drive_set(-0.5 ,DRIVE_SPEED);
+    chassis.pid_wait_quick_chain();
+
+   chassis.pid_turn_set(90, TURN_SPEED, shortest);
+   chassis.pid_wait_quick_chain();
+
+   chassis.pid_drive_set(5 ,DRIVE_SPEED);
+    chassis.pid_wait_quick_chain();
+
+    chassis.pid_turn_set(0, TURN_SPEED, shortest, true);
+    chassis.pid_wait_quick_chain();
+
+    chassis.pid_drive_set(60 ,DRIVE_SPEED,true);  
     chassis.pid_wait();
 
-        pros::delay(350);
+       chassis.pid_turn_set(115, TURN_SPEED, shortest);
+chassis.pid_wait();
 
-    chassis.pid_turn_set(270, 30, shortest);
-    chassis.pid_wait();
 
-    armPID.target_set(1600);
+   Piston11.set(false);
 
-    chassis.pid_drive_set(3 ,DRIVE_SPEED);
-    chassis.pid_wait();
+   intake2.move(-127);
 
-    chassis.pid_drive_set( -2,DRIVE_SPEED);
-    chassis.pid_wait();
+      chassis.pid_drive_set(5 ,DRIVE_SPEED);
+ chassis.pid_wait();
 
-    armPID.target_set(10);
+   Piston11.set(true);
+
+
+
+          chassis.pid_drive_set(-14 ,DRIVE_SPEED);
+  chassis.pid_wait();
+
+      chassis.pid_drive_set(10 ,30);
+    chassis.pid_wait_quick_chain();
+
+      chassis.pid_drive_set(26 ,DRIVE_SPEED);
+    chassis.pid_wait_quick_chain();
+
+      chassis.pid_turn_set(65, TURN_SPEED, shortest);
+      chassis.pid_wait();
+
+      chassis.pid_drive_set(80 ,DRIVE_SPEED);
+    chassis.pid_wait_quick_chain();
+
+      chassis.pid_drive_set(-18 ,DRIVE_SPEED);
+      chassis.pid_wait();
+
+        chassis.pid_turn_set(35, TURN_SPEED, shortest);
+      chassis.pid_wait();
+
+      chassis.pid_drive_set(-40 ,DRIVE_SPEED);
+      chassis.pid_wait();
+
+      armPID.target_set(1600);
+      intake2.move(0);
+
+      chassis.pid_drive_set(-10 ,DRIVE_SPEED);
+      chassis.pid_wait();
+
+
+
+      
 
 
 
