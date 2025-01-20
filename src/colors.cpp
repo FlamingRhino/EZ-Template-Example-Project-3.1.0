@@ -5,7 +5,7 @@
 
 
 
-
+      
 inline void colortask(){
 
   bool onred = false;
@@ -16,7 +16,7 @@ inline void colortask(){
 
       if(ison == true){
       if(onred == true){
-       if (Color.get_hue() >= 0 and Color.get_hue() <= 3 or Color.get_hue() >= 257 and Color.get_hue() <= 260){
+       if (Color.get_hue() >= 0 and Color.get_hue() <= 5){
           Sorter.set(true);
          pros::delay(500);
          Sorter.set(false);
@@ -24,7 +24,8 @@ inline void colortask(){
 
       }else{
 
-       if (Color.get_hue() >= 215 and Color.get_hue() <= 225 ){
+
+       if (Color.get_hue() <= 250 && Color.get_hue() >= 150 && Color.get_proximity() > 200){
           Sorter.set(true);
          pros::delay(500);
           Sorter.set(false);
@@ -34,7 +35,7 @@ inline void colortask(){
       }
       }
 
-      if(master.get_digital(DIGITAL_LEFT)){
+      if(master.get_digital_new_press(DIGITAL_LEFT)){
         if(onred == true){
           onred = false;
         }else{
@@ -43,7 +44,7 @@ inline void colortask(){
       }
       
 
-      if(master.get_digital(DIGITAL_RIGHT)){
+      if(master.get_digital_new_press(DIGITAL_RIGHT)){
         if(ison){
           ison = false;
         }else{

@@ -26,5 +26,8 @@ void  skillaurtopart2();
 void sigawp();
 void skillautonpart3();
 void mogorushfun();
+void sigawpmirrored();
+void ringrush();
+void ringrushblue();
 
 void default_constants();

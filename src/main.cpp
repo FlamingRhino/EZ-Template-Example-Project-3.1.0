@@ -14,7 +14,7 @@ int time_form_op_start = 0;
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
     {-10, 9, -17},     // Left Chassis Ports (negative port will reverse it!)
-    {20, -19, 18},  // Right Chassis Ports (negative port will reverse it!)
+    {20, -11, 18},  // Right Chassis Ports (negative port will reverse it!)
 
     5,      // IMU Port
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
@@ -46,13 +46,18 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-    Auton("mogorushfun mogorushfun mogorushfun", mogorushfun),
-    Auton("Skills skills 3333333333333333333333333333333333333333333333", skillautonpart3),
-      Auton("Skills skills jojooppopojojoppjojoppojojpjopojpopopojopjpopopjo", goodskillcode),
-      Auton("Skills skills part 222222222222", skillaurtopart2),
-    Auton("aawwwpppw", sigawp),
     Auton("BLUe RGIHT SIDE AWPAWPAWPAWPAWPAWPAWPAWP AWP you can also use this on the left red side", blue_right_awp),
     Auton("RED RIGHT SIDE AWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWP BLUEBLUEBLUEBLUEBLUEBLUEBLUEBLUEBLUE AWP you can also use this on the left blue side" , red_right_awp),
+    Auton("sig awp red side left side and also blue lrft  side RED SIG AWP RED SIG AWP RED SGI AWP", sigawp),
+    Auton("sig awp blue side right side and also red right side BLUE SIG AWP BLUE SIG AWP BLUE SIG AWP BLUE SIG AWP", sigawpmirrored),
+    Auton("ringrush starts negtive side BLUEBLUELBUELBUEBLUE BLUEBLue", ringrushblue),
+      Auton("ringrush stars negtive side red REDREDRED", ringrush),
+      Auton("sig awp red side left side and also blue lrft  side RED SIG AWP RED SIG AWP RED SGI AWP", sigawp),
+    Auton("sig awp blue side right side and also red right side BLUE SIG AWP BLUE SIG AWP BLUE SIG AWP BLUE SIG AWP", sigawpmirrored),
+    Auton("mogorushfun mogorushfun mogorushfun", mogorushfun),
+    Auton("Skills skills jojooppopojojoppjojoppojojpjopojpopopojopjpopopjo", goodskillcode),
+    Auton("Skills skills 3333333333333333333333333333333333333333333333", skillautonpart3),
+      Auton("Skills skills part 222222222222", skillaurtopart2),
     Auton("goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush goal rush", goalrush),
     Auton("blue side goal rush This is the stake code for the blue side should work  ", goalrushblue),
      Auton("skills code which might work, SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS", scillsauto),
@@ -74,6 +79,12 @@ void initialize() {
   chassis.initialize();
   ez::as::initialize();
   master.rumble(".");
+
+  Color.set_led_pwm(100);
+
+  pros::Task colorTASK(colortask);
+
+
 
 
   //my random stuff
@@ -227,11 +238,7 @@ void opcontrol() {
 
   int count = 0;
 
-  Color.set_led_pwm(100);
-
-  pros::Task colorTASK(colortask);
-
-
+  
   while (true) {
     // PID Tuner
     // After you find values that you're happy with, you'll have to set them in auton.cpp
@@ -297,7 +304,7 @@ void opcontrol() {
 
       }else if (armcurrentpos  == 0){
 
-        armPID.target_set(275);
+        armPID.target_set(300                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             );
         target = -500;
         armcurrentpos = 1;
 
