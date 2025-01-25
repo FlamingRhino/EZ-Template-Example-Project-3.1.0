@@ -14,6 +14,7 @@
 
   inline ez::Piston Piston11('A');
   inline ez::Piston Piston22('B');
+  inline ez::Piston PistoN737('G');
   inline ez::Piston Sorter('H');
 
   //{port1,port2} put a - to revese 

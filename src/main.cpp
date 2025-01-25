@@ -1,6 +1,9 @@
 #include "main.h"
+#include "EZ-Template/util.hpp"
 #include "arm.cpp"
 #include "colors.cpp"
+#include "pros/misc.h"
+#include "subsystems.hpp"
 
 
 int time_form_op_start = 0;
@@ -278,6 +281,7 @@ void opcontrol() {
     //pistons-upersimple
     Piston11.buttons(master.get_digital(DIGITAL_R1), master.get_digital(DIGITAL_R2));
     Piston22.buttons(master.get_digital(DIGITAL_UP), master.get_digital(DIGITAL_DOWN));
+    PistoN737.button_toggle(master.get_digital(DIGITAL_Y));
    // Sorter.button_toggle(master.get_digital(DIGITAL_RIGHT));
 
     //intake code
