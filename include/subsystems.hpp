@@ -17,6 +17,8 @@
   inline ez::Piston PistoN737('G');
   inline ez::Piston Sorter('H');
 
+  //NICK IF YOU SEE THIS IT WORKS :) o(*￣▽￣*)ブ
+
   //{port1,port2} put a - to revese 
   //INLINE
   inline pros::Motor intake2(7);
