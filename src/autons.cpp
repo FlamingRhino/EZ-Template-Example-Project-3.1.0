@@ -1836,4 +1836,26 @@ void goforwardauton(){
 
 
 
+
+
 // . . .
+void nick_is_testing(){
+
+  chassis.pid_drive_set(-21.0_in, DRIVE_SPEED);
+  chassis.pid_wait();
+  
+  Piston11.set(true);
+
+  chassis.pid_turn_set(270_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+   intake2.move(127);
+  pros::delay(500);
+
+  chassis.pid_drive_set(8_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+
+
+  intake2.move(0);
+}

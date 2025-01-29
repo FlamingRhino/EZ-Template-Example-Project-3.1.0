@@ -29,5 +29,5 @@ void mogorushfun();
 void sigawpmirrored();
 void ringrush();
 void ringrushblue();
-
+void nick_is_testing();
 void default_constants();
