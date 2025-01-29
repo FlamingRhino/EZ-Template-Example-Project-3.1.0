@@ -14,7 +14,7 @@
 
   inline ez::Piston Piston11('A');
   inline ez::Piston Piston22('B');
-  inline ez::Piston PistoN737('G');
+  inline ez::Piston Piston737('G');
   inline ez::Piston Sorter('H');
 
   //NICK IF YOU SEE THIS IT WORKS :) o(*￣▽￣*)ブ

@@ -19,7 +19,7 @@ ez::Drive chassis(
     {-10, 9, -17},     // Left Chassis Ports (negative port will reverse it!)
     {20, -11, 18},  // Right Chassis Ports (negative port will reverse it!)
 
-    5,      // IMU Port
+    6,      // IMU Port
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
     450);   // Wheel RPM
 
@@ -49,6 +49,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+    Auton("MOGO RUSH RED ANICNECE STAKE", mogorushwallblue),
+    Auton("MOGO RUSH RED ANICNECE STAKE", mogorushfun),
     Auton("BLUe RGIHT SIDE AWPAWPAWPAWPAWPAWPAWPAWP AWP you can also use this on the left red side", blue_right_awp),
     Auton("RED RIGHT SIDE AWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWP BLUEBLUEBLUEBLUEBLUEBLUEBLUEBLUEBLUE AWP you can also use this on the left blue side" , red_right_awp),
     Auton("sig awp red side left side and also blue lrft  side RED SIG AWP RED SIG AWP RED SGI AWP", sigawp),
@@ -86,6 +88,9 @@ void initialize() {
   Color.set_led_pwm(100);
 
   pros::Task colorTASK(colortask);
+
+  l_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+  r_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
 
 
@@ -142,8 +147,8 @@ void autonomous() {
   chassis.drive_imu_reset();                  // Reset gyro position to 0
   chassis.drive_sensor_reset();               // Reset drive sensors to 0
   chassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
-  l_arm.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-  r_arm.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+  l_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+  r_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
   time_form_op_start = 0;
   ez::as::auton_selector.selected_auton_call();  // Calls selected auton from autonomous selector
   
@@ -175,7 +180,7 @@ void nicksl2thing(){
   if (master.get_digital(DIGITAL_L2) == 1){
       intake2.move(-127);
       bool nicktoggle = true;
-      while (nicktoggle = true)
+      while (nicktoggle == true)
       {
         if(master.get_digital(DIGITAL_L2) == 0){
           intake2.move(0);
@@ -213,6 +218,8 @@ void clockthing(){
 
 
 void opcontrol() {
+
+  
   // This is preference to what you like to drive on
    
   pros::motor_brake_mode_e_t driver_preference_brake = MOTOR_BRAKE_HOLD;
@@ -241,8 +248,18 @@ void opcontrol() {
 
   int count = 0;
 
+  bool manualarm = false;
+
   
   while (true) {
+
+        if (master.get_digital_new_press(DIGITAL_Y)){
+      if(manualarm == true){
+        manualarm = false;
+      }else{
+        manualarm = true;
+      }
+    }
     // PID Tuner
     // After you find values that you're happy with, you'll have to set them in auton.cpp
     //left_wing.button_toggle(master.get_digital(DIGITAL_X));
@@ -281,11 +298,9 @@ void opcontrol() {
     //pistons-upersimple
     Piston11.buttons(master.get_digital(DIGITAL_R1), master.get_digital(DIGITAL_R2));
     Piston22.buttons(master.get_digital(DIGITAL_UP), master.get_digital(DIGITAL_DOWN));
-    PistoN737.button_toggle(master.get_digital(DIGITAL_Y));
    // Sorter.button_toggle(master.get_digital(DIGITAL_RIGHT));
 
     //intake code
-        
     if (master.get_digital(DIGITAL_L1) == 1){
       intake2.move(127);
     }
@@ -294,43 +309,61 @@ void opcontrol() {
       nicksl2thing();
     }
     //move arm to pos code
+
+
+
+
+    if (manualarm == false){
   
-    if (master.get_digital_new_press(DIGITAL_X)){  
+      if (master.get_digital_new_press(DIGITAL_X)){  
       //pos   
       
       //pos 2    
-      if (armcurrentpos  ==  1){
+         if (armcurrentpos  ==  1){
 
-        armPID.target_set(1600);
-        target = 0;
-        armcurrentpos = 0;
+          armPID.target_set(1170);
+          target = 0;
+          armcurrentpos = 0;
         
 
-      }else if (armcurrentpos  == 0){
+        }else if (armcurrentpos  == 0){
 
-        armPID.target_set(300                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             );
-        target = -500;
-        armcurrentpos = 1;
+          armPID.target_set(230);
+          armcurrentpos = 1;
 
         
       }
 
-    }
-    //resting place for arm
-    if (master.get_digital(DIGITAL_B)){
+      }
+     //resting place for arm
+     if (master.get_digital(DIGITAL_B)){
 
       armPID.target_set(20);
       target = 115;
-      
+
       armcurrentpos = 0;
 
-    }
+       }
 
 
-    if (master.get_digital(DIGITAL_A)){
+      if (master.get_digital(DIGITAL_A)){
 
-      armPID.target_set(1850);
+        armPID.target_set(1850);
     
+     }
+    } else{
+      if( armPID.target_get() <= 2200){
+      if(master.get_digital(DIGITAL_X)){
+        armPID.target_set(armPID.target_get() + 30 );
+      }
+
+      }
+      if(armPID.target_get() >= 5){
+      if(master.get_digital(DIGITAL_B)){
+        armPID.target_set(armPID.target_get() - 30 );
+      }
+      }
+
     }
 
       

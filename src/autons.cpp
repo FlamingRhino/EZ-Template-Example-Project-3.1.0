@@ -1,5 +1,7 @@
 #include "autons.hpp"
 #include <stdio.h>
+#include "EZ-Template/piston.hpp"
+#include "EZ-Template/util.hpp"
 #include "arm.cpp"
 #include "pros/rtos.hpp"
 #include "subsystems.hpp"
@@ -45,11 +47,201 @@ void default_constants() {
 
 
 void mogorushfun(){
-  chassis.pid_drive_set(34_in, 127);
-  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(40_in, DRIVE_SPEED);
   Piston22.set(true);
-  chassis.pid_drive_set(-24_in, 127);
+  chassis.pid_wait_until(28_in);
+  chassis.pid_speed_max_set(127);
+  chassis.pid_wait_until(35_in);
+  Piston737.set(true);
   chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(-50_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  Piston737.set(false);
+
+  chassis.pid_drive_set(-3_in, DRIVE_SPEED);
+  armPID.target_set(230);
+
+  pros::delay(200);
+
+  intake2.move(127);
+  chassis.pid_wait();
+
+  Piston22.set(false);
+
+  chassis.pid_turn_set(12, TURN_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(6_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  intake2.move(0);
+
+  armPID.target_set(1850);
+
+  pros::delay(500);
+
+  chassis.pid_turn_set(155, 60, right_turn, true);
+  pros::delay(200);
+  armPID.target_set(10);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-40_in, DRIVE_SPEED);
+  chassis.pid_wait_until(-18_in);
+  chassis.pid_speed_max_set(60);
+  chassis.pid_wait_until(-34_in);
+  Piston11.set(true);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(10_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  pros::delay(100);
+
+  chassis.pid_turn_set(85 , TURN_SPEED, shortest);
+  intake2.move(127);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(32_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  pros::delay(250);
+
+  chassis.pid_drive_set(-32_in, DRIVE_SPEED);
+  chassis.pid_wait();
+  intake2.move(0);
+
+  chassis.pid_turn_set(217, 50, shortest, true);
+  chassis.pid_wait();
+
+  armPID.target_set(1180);
+
+  chassis.pid_drive_set(37_in, 90);
+     intake2.move(50);
+  chassis.pid_wait_until(12_in);
+  chassis.pid_speed_max_set(30);
+  chassis.pid_wait_until(26_in);
+   intake2.move(40);
+  armPID.target_set(230);
+  chassis.pid_wait();
+
+  intake2.move(127);
+
+  pros::delay(1000);
+
+  
+  chassis.pid_turn_set(170 , TURN_SPEED, shortest, true);
+
+  intake2.move(0);
+
+  chassis.pid_wait_quick();
+
+  armPID.target_set(1080);
+
+  pros::delay(450);
+
+  intake2.move(-127);
+
+  chassis.pid_drive_set(8_in, 60);
+  chassis.pid_wait();
+
+  armPID.target_set(1850);
+
+  pros::delay(350);
+
+  chassis.pid_drive_set(-5_in, 60);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(90, 70, shortest, true);
+  armPID.target_set(10);
+  chassis.pid_wait();
+
+  //chassis.pid_drive_set(62_in, 127);
+  //intake2.move(127);
+  //chassis.pid_wait();
+
+
+
+
+
+}
+
+void mogorushwallblue(){
+  chassis.pid_drive_set(40_in, DRIVE_SPEED);
+  Piston22.set(true);
+  chassis.pid_wait_until(28_in);
+  chassis.pid_speed_max_set(127);
+  chassis.pid_wait_until(35_in);
+  Piston737.set(true);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(-45_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  Piston737.set(false);
+  chassis.pid_drive_set(-3_in, DRIVE_SPEED);
+  armPID.target_set(240);
+
+  pros::delay(200);
+
+  intake2.move(127);
+  chassis.pid_wait();
+
+  Piston22.set(false);
+
+  chassis.pid_turn_set(12, TURN_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(7.5_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  armPID.target_set(1850);
+
+  intake2.move(0);
+  pros::delay(500);
+
+  chassis.pid_turn_set(-140, TURN_SPEED,shortest);
+  chassis.pid_wait();
+
+  intake2.move(127);
+  
+  chassis.pid_drive_set(-40_in, DRIVE_SPEED);
+  chassis.pid_wait_until(-18_in);
+  chassis.pid_speed_max_set(60);
+  chassis.pid_wait_until(-34_in);
+  Piston11.set(true);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-100, TURN_SPEED,shortest);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(36_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  pros::delay(500);
+
+  chassis.pid_drive_set(-36_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-145, TURN_SPEED,shortest);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(50_in, DRIVE_SPEED);
+  chassis.pid_wait();
+
+  armPID.target_set(1670);
+
+
+}
+
+void mogorushredplus(){
+  
+}
+
+void mogorushblueplus(){
+  
 }
 
 void sigawpmirrored(){
@@ -773,7 +965,7 @@ void interfered_example() {
 
 void red_right_awp(){
   int i = 0;
-  armPID.target_set(1845);
+  armPID.target_set(1360);
   while (i < 400){
     //arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
@@ -810,7 +1002,7 @@ void red_right_awp(){
   chassis.pid_drive_set(30_in, 80);
 
   i = 0;
-  armPID.target_set(1700);
+  armPID.target_set(1360);
 
     while (i < 300){
     //arm.move(armPID.compute(arm.get_position()));
@@ -882,7 +1074,7 @@ void red_right_awp(){
 
 void blue_right_awp(){
   int i = 0;
-  armPID.target_set(1845);
+  armPID.target_set(1360);
   while (i < 400){
   //  arm.move(armPID.compute(arm.get_position()));
     pros::delay(2);
@@ -928,7 +1120,7 @@ void blue_right_awp(){
   chassis.pid_drive_set(34_in, 80);
 
   i = 0;
-  armPID.target_set(1700);
+  armPID.target_set(1360);
 
     while (i < 300){
     //arm.move(armPID.compute(arm.get_position()));

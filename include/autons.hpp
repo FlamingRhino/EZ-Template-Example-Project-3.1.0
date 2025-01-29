@@ -29,5 +29,9 @@ void mogorushfun();
 void sigawpmirrored();
 void ringrush();
 void ringrushblue();
+void mogorushwallblue();
+void mogorushredplus();
+void mogorushblueplus();
+
 
 void default_constants();
