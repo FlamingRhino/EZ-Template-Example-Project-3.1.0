@@ -29,9 +29,12 @@ void mogorushfun();
 void sigawpmirrored();
 void ringrush();
 void ringrushblue();
+<<<<<<< HEAD
 void mogorushwallblue();
 void mogorushredplus();
 void mogorushblueplus();
+void nick_is_testing();
+=======
 
-
+>>>>>>> 8eed346e991d4fce2a526198aa4f8869e6a60c44
 void default_constants();
