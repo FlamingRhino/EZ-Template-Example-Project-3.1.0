@@ -3,8 +3,6 @@
 
 
 
-
-
       
 inline void colortask(){
 
