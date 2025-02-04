@@ -23,7 +23,7 @@ inline void colortask(){
       }else{
 
 
-       if (Color.get_hue() <= 250 && Color.get_hue() >= 150 && Color.get_proximity() > 200){
+       if (Color.get_hue() <= 230 && Color.get_hue() >= 150 && Color.get_proximity() > 215){
           Sorter.set(true);
          pros::delay(500);
           Sorter.set(false);

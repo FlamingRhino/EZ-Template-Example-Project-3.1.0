@@ -53,6 +53,7 @@ void initialize() {
     Auton("MOGO RUSH RED ANICNECE STAKE", mogorushfun),
     Auton("BLUe RGIHT SIDE AWPAWPAWPAWPAWPAWPAWPAWP AWP you can also use this on the left red side", blue_right_awp),
     Auton("RED RIGHT SIDE AWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWPAWP BLUEBLUEBLUEBLUEBLUEBLUEBLUEBLUEBLUE AWP you can also use this on the left blue side" , red_right_awp),
+      Auton("RED RIGHT SIDE CORNER CODE THIS IS LIKE THE AWP CODE BUT GETS THE CORNER" , red_right_corner),
     Auton("sig awp red side left side and also blue lrft  side RED SIG AWP RED SIG AWP RED SGI AWP", sigawp),
     Auton("sig awp blue side right side and also red right side BLUE SIG AWP BLUE SIG AWP BLUE SIG AWP BLUE SIG AWP", sigawpmirrored),
     Auton("ringrush starts negtive side BLUEBLUELBUELBUEBLUE BLUEBLue", ringrushblue),
@@ -78,7 +79,12 @@ void initialize() {
       Auton("Motion Chaining\n\nDrive forward, turn, and come back, but blend everything together :D", motion_chaining),
       Auton("Combine all 3 movements", combining_movements),
       Auton("Interference\n\nAfter driving forward, robot performs differently if interfered or not.", interfered_example),
-      Auton("nick is testing code", nick_is_testing)
+      Auton("nick is testing code", nick_is_testing),
+      Auton("3 top ring, goal rush ", nick_is_testing),
+      Auton("1 top ring, 2 ring, goal rush BLUE SIDE BLUE SIDE MOGO RUSH ends at ladder", bluesidemogorushbutdiffrent),
+            Auton("1 top ring, 2 ring, goal rush BLUE SIDE BLUE SIDE MOGO RUSH", bluesidefunmogorush),
+      Auton("1 top ring, 2 ring, goal rush ",mogorushfunnicktest),
+      Auton("thing", backup),
   });
 
   // Initialize chassis and auton selector
@@ -89,6 +95,7 @@ void initialize() {
   Color.set_led_pwm(100);
 
   pros::Task colorTASK(colortask);
+
 
   l_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
   r_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
@@ -329,7 +336,7 @@ void opcontrol() {
 
         }else if (armcurrentpos  == 0){
 
-          armPID.target_set(230);
+          armPID.target_set(255);
           armcurrentpos = 1;
 
         
@@ -347,7 +354,7 @@ void opcontrol() {
        }
 
 
-      if (master.get_digital(DIGITAL_A)){
+      if (master.get_digital(DIGITAL_A )){
 
         armPID.target_set(1850);
     

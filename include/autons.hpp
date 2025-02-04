@@ -33,4 +33,12 @@ void mogorushwallblue();
 void mogorushredplus();
 void mogorushblueplus();
 void nick_is_testing();
+void goforwardauton();
+void mogorushfunnicktest();
+void red_right_corner();
+void bluesidefunmogorush();
+void bluesidemogorushbutdiffrent();
+void backup();
+
+
 void default_constants();

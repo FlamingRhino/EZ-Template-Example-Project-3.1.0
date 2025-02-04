@@ -1,7 +1,8 @@
 #include "main.h"
 #include "subsystems.hpp"
-
+ 
  inline ez::PID armPID{0.45, 0, 0, 0, "armp"};
+
 
  
 inline void set_lift(int input) {
@@ -16,16 +17,9 @@ inline void set_lift(int input) {
    while (true) {
       set_lift(armPID.compute(l_arm.get_position()));
 
+
       pros::delay(ez::util::DELAY_TIME);
     }
 
 }
-
-
-
-
-
- inline pros::Task Aarmtask(armtask);
-
-
-
+ inline   pros::Task armpidtask(armtask);
