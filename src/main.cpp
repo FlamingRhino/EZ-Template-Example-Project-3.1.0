@@ -16,8 +16,8 @@ int time_form_op_start = 0;
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {-10, 9, -17},     // Left Chassis Ports (negative port will reverse it!)
-    {20, -11, 18},  // Right Chassis Ports (negative port will reverse it!)
+    {6, 17, 16},     // Left Chassis Ports (negative port will reverse it!)
+    {8, 4, 5},  // Right Chassis Ports (negative port will reverse it!)
 
     6,      // IMU Port
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
