@@ -21,9 +21,9 @@
 
   //{port1,port2} put a - to revese 
   //INLINE
-  inline pros::Motor intake2(7);
+  inline pros::MotorGroup intake2({18,10});
   inline pros::Motor l_arm(8);
-  inline pros::Motor r_arm(-3);
+  inline pros::Motor r_arm(19);
 
   inline pros::Optical Color(21);
 
