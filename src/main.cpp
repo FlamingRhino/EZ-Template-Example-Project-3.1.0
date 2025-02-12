@@ -402,7 +402,7 @@ void opcontrol() {
 
         if (ez::as::page_blank_is_on(0)) {
          ez::screen_print("facing: " + util::to_string_with_precision( chassis.drive_imu_get()), 1);
-    }
+    } 
 
 
 
