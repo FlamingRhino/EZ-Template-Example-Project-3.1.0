@@ -39,6 +39,10 @@ void red_right_corner();
 void bluesidefunmogorush();
 void bluesidemogorushbutdiffrent();
 void backup();
+void measure_offsets();
+void odom_red_rush();
+void awpodomcode();
+void odomtestcool();
 
 
 void default_constants();

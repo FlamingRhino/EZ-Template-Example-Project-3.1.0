@@ -1,9 +1,10 @@
 #include "main.h"
 #include "EZ-Template/util.hpp"
-#include "arm.cpp"
 #include "colors.cpp"
 #include "pros/misc.h"
 #include "subsystems.hpp"
+
+#include "constantsauton.cpp"
 
 
 int time_form_op_start = 0;
@@ -16,12 +17,20 @@ int time_form_op_start = 0;
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {6, 17, 16},     // Left Chassis Ports (negative port will reverse it!)
+    {-6, -17, -16},     // Left Chassis Ports (negative port will reverse it!)    
     {8, 4, 5},  // Right Chassis Ports (negative port will reverse it!)
-
-    6,      // IMU Port
+    15,      // IMU Port
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
     450);   // Wheel RPM
+
+// Uncomment the trackers you're using here!
+// - `8` and `9` are smart ports (making these negative will reverse the sensor)
+//  - you should get positive values on the encoders going FORWARD and RIGHT
+// - `2.75` is the wheel diameter
+// - `4.0` is the distance from the center of the wheel to the center of the robot
+ez::tracking_wheel horiz_tracker(1, 2, 3.55);  // This tracking wheel is perpendicular to the drive wheels
+//ez::tracking_wheel vert_tracker(9, 2, 4.0);   // This tracking wheel is parallel to the drive wheels
+
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -34,6 +43,18 @@ void initialize() {
   ez::ez_template_print();
 
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
+
+    chassis.odom_enable(true);
+
+
+    // Look at your horizontal tracking wheel and decide if it's in front of the midline of your robot or behind it
+  //  - change `back` to `front` if the tracking wheel is in front of the midline
+  //  - ignore this if you aren't using a horizontal tracker
+  chassis.odom_tracker_front_set(&horiz_tracker);
+  // Look at your vertical tracking wheel and decide if it's to the left or right of the center of the robot
+  //  - change `left` to `right` if the tracking wheel is to the right of the centerline
+  //  - ignore this if you aren't using a vertical tracker
+  //chassis.odom_tracker_left_set(&vert_tracker);
 
   // Configure your chassis controls
   chassis.opcontrol_curve_buttons_toggle(false);  // Enables modifying the controller curve with buttons on the joysticks
@@ -49,6 +70,9 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+    Auton{"red side goal rush but has odom", odom_red_rush},
+    Auton("odom test code", odomtestcool),
+    Auton("awp odom thing",awpodomcode),
     Auton("MOGO RUSH RED ANICNECE STAKE", mogorushwallblue),
     Auton("MOGO RUSH RED ANICNECE STAKE", mogorushfun),
     Auton("BLUe RGIHT SIDE AWPAWPAWPAWPAWPAWPAWPAWP AWP you can also use this on the left red side", blue_right_awp),
@@ -85,6 +109,7 @@ void initialize() {
             Auton("1 top ring, 2 ring, goal rush BLUE SIDE BLUE SIDE MOGO RUSH", bluesidefunmogorush),
       Auton("1 top ring, 2 ring, goal rush ",mogorushfunnicktest),
       Auton("thing", backup),
+      Auton{"test to see the pos of odom pods or something", measure_offsets},
   });
 
   // Initialize chassis and auton selector
@@ -220,6 +245,58 @@ void clockthing(){
   } 
 }
 
+/**
+ * Simplifies printing tracker values to the brain screen
+ */
+void screen_print_tracker(ez::tracking_wheel *tracker, std::string name, int line) {
+  std::string tracker_value = "", tracker_width = "";
+  // Check if the tracker exists
+  if (tracker != nullptr) {
+    tracker_value = name + " tracker: " + util::to_string_with_precision(tracker->get());             // Make text for the tracker value
+    tracker_width = "  width: " + util::to_string_with_precision(tracker->distance_to_center_get());  // Make text for the distance to center
+  }
+  ez::screen_print(tracker_value + tracker_width, line);  // Print final tracker text
+}
+
+/**
+ * Ez screen task
+ * Adding new pages here will let you view them during user control or autonomous
+ * and will help you debug problems you're having
+ */
+void ez_screen_task() {
+  while (true) {
+    // Only run this when not connected to a competition switch
+    if (!pros::competition::is_connected()) {
+      // Blank page for odom debugging
+      if (chassis.odom_enabled() && !chassis.pid_tuner_enabled()) {
+        // If we're on the first blank page...
+        if (ez::as::page_blank_is_on(0)) {
+          // Display X, Y, and Theta
+          ez::screen_print("x: " + util::to_string_with_precision(chassis.odom_x_get()) +
+                               "\ny: " + util::to_string_with_precision(chassis.odom_y_get()) +
+                               "\na: " + util::to_string_with_precision(chassis.odom_theta_get()),
+                           1);  // Don't override the top Page line
+
+          // Display all trackers that are being used
+          screen_print_tracker(chassis.odom_tracker_left, "l", 4);
+          screen_print_tracker(chassis.odom_tracker_right, "r", 5);
+          screen_print_tracker(chassis.odom_tracker_back, "b", 6);
+          screen_print_tracker(chassis.odom_tracker_front, "f", 7);
+        }
+      }
+    }
+
+    // Remove all blank pages when connected to a comp switch
+    else {
+      if (ez::as::page_blank_amount() > 0)
+        ez::as::page_blank_remove_all();
+    }
+
+    pros::delay(ez::util::DELAY_TIME);
+  }
+}
+pros::Task ezScreenTask(ez_screen_task);
+
 
 
 
@@ -261,34 +338,11 @@ void opcontrol() {
   
   while (true) {
 
-        if (master.get_digital_new_press(DIGITAL_Y)){
-      if(manualarm == true){
-        manualarm = false;
-      }else{
-        manualarm = true;
-      }
-    }
     // PID Tuner
     // After you find values that you're happy with, you'll have to set them in auton.cpp
     //left_wing.button_toggle(master.get_digital(DIGITAL_X));
 
-    if (!pros::competition::is_connected()) {
-      // Enable / Disable PID Tuner
-      //  When enabled:
-      //  * use A and Y to increment / decrement the constants
-      //  * use the arrow keys to navigate the constants
-      if (master.get_digital_new_press(DIGITAL_Y))
-        chassis.pid_tuner_toggle();
 
-
-      // Trigger the selected autonomous routine
-      if (master.get_digital(DIGITAL_B) && master.get_digital(DIGITAL_DOWN)) {
-        autonomous();
-        chassis.drive_brake_set(MOTOR_BRAKE_HOLD);
-      }
-
-      chassis.pid_tuner_iterate();  // Allow PID Tuner to iterate
-    }
 
     //chassis.opcontrol_tank();  // Tank control
     chassis.opcontrol_arcade_standard(ez::SPLIT);   // Standard split arcade
@@ -304,8 +358,10 @@ void opcontrol() {
           error = target - rotation_sensor.get_angle();
      //arm.move(armPID.compute_error(error, arm.get_position()));
     //pistons-upersimple
-    Piston11.buttons(master.get_digital(DIGITAL_R1), master.get_digital(DIGITAL_R2));
     Piston22.buttons(master.get_digital(DIGITAL_UP), master.get_digital(DIGITAL_DOWN));
+    Piston11.button_toggle(master.get_digital(DIGITAL_R1));
+    Piston737.button_toggle(master.get_digital(DIGITAL_R2));
+
    // Sorter.button_toggle(master.get_digital(DIGITAL_RIGHT));
 
     //intake code
@@ -317,7 +373,13 @@ void opcontrol() {
       nicksl2thing();
     }
     //move arm to pos code
-
+    if (master.get_digital_new_press(DIGITAL_Y)){
+      if(manualarm == true){
+        manualarm = false;
+      }else{
+        manualarm = true;
+      }
+    }
 
 
 
@@ -329,14 +391,14 @@ void opcontrol() {
       //pos 2    
          if (armcurrentpos  ==  1){
 
-          armPID.target_set(1170);
+          armPID.target_set(550);
           target = 0;
           armcurrentpos = 0;
         
 
         }else if (armcurrentpos  == 0){
 
-          armPID.target_set(255);
+          armPID.target_set(290);
           armcurrentpos = 1;
 
         
@@ -374,7 +436,7 @@ void opcontrol() {
 
     }
 
-      
+    
 
     
 
@@ -401,8 +463,29 @@ void opcontrol() {
     count++;
 
         if (ez::as::page_blank_is_on(0)) {
-         ez::screen_print("facing: " + util::to_string_with_precision( chassis.drive_imu_get()), 1);
+        // ez::screen_print("facing: " + util::to_string_with_precision( chassis.drive_imu_get()), 1);
     } 
+
+
+    if (!pros::competition::is_connected()) {
+      // Enable / Disable PID Tuner
+      //  When enabled:
+      //  * use A and Y to increment / decrement the constants
+      //  * use the arrow keys to navigate the constants
+      if (master.get_digital_new_press(DIGITAL_X)){
+        chassis.pid_tuner_toggle();
+
+      }
+      // Trigger the selected autonomous routine
+      if (master.get_digital(DIGITAL_B) && master.get_digital(DIGITAL_DOWN)) {
+        autonomous();
+        chassis.drive_brake_set(MOTOR_BRAKE_HOLD);
+      }
+
+      chassis.pid_tuner_iterate();  // Allow PID Tuner to iterate
+    }
+
+      
 
 
 
