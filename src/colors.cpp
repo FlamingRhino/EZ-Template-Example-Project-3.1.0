@@ -27,6 +27,7 @@ inline void colortask(){
           Sorter.set(true);
          pros::delay(500);
           Sorter.set(false);
+          master.print(1, 0, "on RED");
          }
 
 
@@ -36,8 +37,10 @@ inline void colortask(){
       if(master.get_digital_new_press(DIGITAL_LEFT)){
         if(onred == true){
           onred = false;
+          master.print(1, 0, "on RED");
         }else{
           onred = true;
+          master.print(1, 0, "on BLUE");
         }
       }
       
@@ -45,8 +48,10 @@ inline void colortask(){
       if(master.get_digital_new_press(DIGITAL_RIGHT)){
         if(ison){
           ison = false;
+          master.print(1, 10, "OFF  ");
         }else{
           ison = true;
+          master.print(1, 10, "ON  ");
         }
       }
 
@@ -74,7 +79,7 @@ inline void colortask(){
        }
 
     }
-    count++;
+    //count++;
 
 
 
