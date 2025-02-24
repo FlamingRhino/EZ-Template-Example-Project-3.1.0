@@ -149,20 +149,19 @@ void awpodomcode(){
   chassis.odom_xyt_set(0_in, 0_in, 0_deg);    // Set the current position, you can start at a specific position with this
   chassis.drive_brake_set(pros::E_MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
 
-  armPID.target_set(300);
 
-  chassis.pid_odom_set({{0_in, 10.6_in}, fwd, 80});
+
+  chassis.pid_odom_set({{0_in, 10.6_in}, fwd, 110});
   pros::delay(225);
-  intake2.move(127);
   chassis.pid_wait();
 
   armPID.target_set(1520);
   intake2.move(0);
-  pros::delay(500);
+  pros::delay(700);
 
   intake2.move(127);
 
-  chassis.pid_odom_set({{0_in, -31.3_in, 6_deg}, rev, 110});
+  chassis.pid_odom_set({{0_in, -31.3_in, 6_deg}, rev, 80});
   pros::delay(200);
   armPID.target_set(10);
   chassis.pid_wait_until({0,-15});
@@ -214,6 +213,6 @@ void odomtestcool(){
 
 
 
+
+
 }
-
-

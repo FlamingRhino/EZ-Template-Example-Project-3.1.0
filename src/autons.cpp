@@ -2239,7 +2239,7 @@ chassis.pid_turn_set(-121_deg, 70, shortest, true);
 
 
 void mogorushfunnicktest(){
-  armPID.target_set(245);
+  armPID.target_set(275);
   intake2.move(127);
   chassis.pid_drive_set(38_in, DRIVE_SPEED);
   Piston22.set(true);
@@ -2317,7 +2317,7 @@ pros::delay(200);
   chassis.pid_drive_set(15_in, 40);
   chassis.pid_wait();  
 
-  chassis.pid_drive_set(-15_in, DRIVE_SPEED);
+  chassis.pid_drive_set(-40_in, DRIVE_SPEED);
   chassis.pid_wait();  
 
 

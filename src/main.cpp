@@ -110,6 +110,7 @@ void initialize() {
       Auton("1 top ring, 2 ring, goal rush ",mogorushfunnicktest),
       Auton("thing", backup),
       Auton{"test to see the pos of odom pods or something", measure_offsets},
+    
   });
 
   // Initialize chassis and auton selector
@@ -398,7 +399,7 @@ void opcontrol() {
 
         }else if (armcurrentpos  == 0){
 
-          armPID.target_set(290);
+          armPID.target_set(295);
           armcurrentpos = 1;
 
         
