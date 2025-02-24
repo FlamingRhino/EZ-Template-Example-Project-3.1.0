@@ -27,7 +27,8 @@ inline const int SWING_SPEED = 90;
 ///
 inline void default_constants() {
   chassis.pid_heading_constants_set(11, 0, 20);
-  chassis.pid_drive_constants_set(28, 0.6, 150);
+  //chassis.pid_drive_constants_set(28, 0.6, 150);
+  chassis.pid_drive_constants_set(12.3, 0.6, 99);
   chassis.pid_turn_constants_set(3.4, 0.052, 22.5, 16); // 3.4 0.052 22.5 16.0
   chassis.pid_swing_constants_set(6, 0, 65);
   chassis.pid_odom_angular_constants_set(6.5, 0.0, 52.5);    // Angular control for odom motions
