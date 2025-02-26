@@ -278,7 +278,7 @@ while running:
                         combined_list.append(position_entry)
                     print(f"Added position to combined list: {combined_list[-1]}")
                 elif add_zero_button_rect.collidepoint(event.pos):
-                    zero_entry = f"//set angle ({int(player_angle) % 360})"
+                    zero_entry = f"//set zero ({int(player_angle) % 360})"
                     if combined_list and combined_list[selected_entry_index] == "// New entry":
                         combined_list[selected_entry_index] = zero_entry
                     else:
@@ -352,7 +352,7 @@ while running:
                 else:
                     if event.key == pygame.K_j and initial_player_pos is not None:
                         direction = pygame.Vector2(1, 0).rotate(-player_angle)
-                        distance = direction.dot(player_pos - initial_player_pos) / zoom_factor / (30/7)
+                        distance = ((line_start_pos.x - player_pos.x) ** 2 + (line_start_pos.y - player_pos.y) ** 2) ** 0.5 / (30/7) # Calculate the distance between the initial and current player position
                         if not combined_list:
                             combined_list.append(f"// Position: {int(player_pos.x)}, {int(player_pos.y)}, Angle: {int(player_angle) % 360}°\n")
                         if combined_list and combined_list[selected_entry_index] == "// New entry":
@@ -503,7 +503,7 @@ while running:
                     elif pygame.key.get_mods():
                         if event.key == pygame.K_j and initial_player_pos is not None:
                             direction = pygame.Vector2(1, 0).rotate(-player_angle)
-                            distance = direction.dot(player_pos - initial_player_pos) / zoom_factor / (30/7)
+                            distance = ((line_start_pos.x - player_pos.x) ** 2 + (line_start_pos.y - player_pos.y) ** 2) ** 0.5 / (30/7) # Calculate the distance between the initial and current player position
                             if not combined_list:
                                 combined_list.append(f"// Position: {int(player_pos.x)}, {int(player_pos.y)}, Angle: {int(player_angle) % 360}°\n")
                             if combined_list[selected_entry_index] == "// New entry":
@@ -662,12 +662,12 @@ while running:
             screen.blit(loaded_function_text, (screen.get_width() / 2 - loaded_function_text.get_width() / 2, 25))
 
         # Display the initial player position when L is first pressed
-        if initial_player_pos is not None:
-            initial_pos_text = font.render(f"Initial Pos: ({int(initial_player_pos.x)}, {int(initial_player_pos.y)})", True, (255, 255, 255))
+        if line_start_pos is not None:
+            initial_pos_text = font.render(f"Initial Pos: ({int(line_start_pos.x)}, {int(line_start_pos.y)})", True, (255, 255, 255))
             screen.blit(initial_pos_text, (10, 90))
 
             direction = pygame.Vector2(1, 0).rotate(-player_angle)
-            distance = direction.dot(player_pos - initial_player_pos) / zoom_factor / (30/7)  # Calculate the distance between the initial and current player position
+            distance = ((line_start_pos.x - player_pos.x) ** 2 + (line_start_pos.y - player_pos.y) ** 2) ** 0.5 / (30/7) # Calculate the distance between the initial and current player position
             distance_text = font.render(f"Distance: {int(distance)}", True, (255, 255, 255))
             screen.blit(distance_text, (10, 130))
 
@@ -767,9 +767,9 @@ while running:
                 player_pos += pygame.Vector2(1, 0).rotate(player_angle) * (300 * dt)  # Adjust angle by 180 degrees
             if keys[pygame.K_s]:
                 player_pos -= pygame.Vector2(1, 0).rotate(player_angle) * (300 * dt)  # Adjust angle by 180 degrees
-            if keys[pygame.K_a]:
-                player_angle += 300 * dt  # Rotate counterclockwise
             if keys[pygame.K_d]:
+                player_angle += 300 * dt  # Rotate counterclockwise
+            if keys[pygame.K_a]:
                 player_angle -= 300 * dt  # Rotate clockwise
 
         if not line_drawing_mode:
@@ -778,13 +778,13 @@ while running:
             if keys[pygame.K_e]:
                 player_pos += pygame.Vector2(1, 0).rotate(player_angle + 90) * (300 * dt)  # Adjust angle by 180 degrees
             if keys[pygame.K_UP]:
-                player_pos += pygame.Vector2(1, 0).rotate(player_angle) * (100 * dt)  # Move forward slowly, adjust angle by 180 degrees
+                player_pos += pygame.Vector2(1, 0).rotate(player_angle) * (30 * dt)  # Move forward slowly, adjust angle by 180 degrees
             if keys[pygame.K_DOWN]:
-                player_pos -= pygame.Vector2(1, 0).rotate(player_angle) * (100 * dt)  # Move backward slowly, adjust angle by 180 degrees
+                player_pos -= pygame.Vector2(1, 0).rotate(player_angle) * (30 * dt)  # Move backward slowly, adjust angle by 180 degrees
             if keys[pygame.K_LEFT]:
-                player_angle += 50 * dt
+                player_angle += 10 * dt
             if keys[pygame.K_RIGHT]:
-                player_angle -= 50 * dt
+                player_angle -= 10 * dt
             if keys[pygame.K_x]:
                 playback_line_points.clear()  # Clear the playback lines
                 print("Playback lines cleared")

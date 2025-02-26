@@ -12,8 +12,8 @@
 
   inline pros::Rotation rotation_sensor(15);
 
-  inline ez::Piston Piston11('A');
-  inline ez::Piston Piston22('B');
+  inline ez::Piston Piston11('E',true);
+  inline ez::Piston Piston22('F');
   inline ez::Piston Piston737('G');
   inline ez::Piston Sorter('H');
 
@@ -21,9 +21,9 @@
 
   //{port1,port2} put a - to revese 
   //INLINE
-  inline pros::MotorGroup intake2({-19,-10});
-  inline pros::Motor l_arm(20);
-  inline pros::Motor r_arm(-18);
+  inline pros::MotorGroup intake2({-18,10});
+  inline pros::Motor r_arm(4);
+  inline pros::Motor l_arm(-18);
 
   inline pros::Optical Color(14);
 
