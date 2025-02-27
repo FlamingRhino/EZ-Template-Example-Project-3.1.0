@@ -767,9 +767,9 @@ while running:
                 player_pos += pygame.Vector2(1, 0).rotate(player_angle) * (300 * dt)  # Adjust angle by 180 degrees
             if keys[pygame.K_s]:
                 player_pos -= pygame.Vector2(1, 0).rotate(player_angle) * (300 * dt)  # Adjust angle by 180 degrees
-            if keys[pygame.K_a]:
-                player_angle += 300 * dt  # Rotate counterclockwise
             if keys[pygame.K_d]:
+                player_angle += 300 * dt  # Rotate counterclockwise
+            if keys[pygame.K_a]:
                 player_angle -= 300 * dt  # Rotate clockwise
 
         if not line_drawing_mode:
