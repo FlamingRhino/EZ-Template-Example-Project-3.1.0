@@ -17,9 +17,9 @@ int time_form_op_start = 0;
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {-6, -17, -16},     // Left Chassis Ports (negative port will reverse it!)    
-    {8, 4, 5},  // Right Chassis Ports (negative port will reverse it!)
-    15,      // IMU Port
+    {-14, -15, -16},     // Left Chassis Ports (negative port will reverse it!)    
+    {9, 17, 6},  // Right Chassis Ports (negative port will reverse it!)
+    1,      // IMU Port
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
     450);   // Wheel RPM
 
@@ -70,6 +70,7 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+    Auton{"test for auton maker rushes middle rings", midle_ring_rush },
     Auton{"red side goal rush but has odom", odom_red_rush},
     Auton("odom test code", odomtestcool),
     Auton("awp odom thing",awpodomcode),
@@ -392,14 +393,14 @@ void opcontrol() {
       //pos 2    
          if (armcurrentpos  ==  1){
 
-          armPID.target_set(550);
+          armPID.target_set(1000);
           target = 0;
           armcurrentpos = 0;
         
 
         }else if (armcurrentpos  == 0){
 
-          armPID.target_set(295);
+          armPID.target_set(250);
           armcurrentpos = 1;
 
         

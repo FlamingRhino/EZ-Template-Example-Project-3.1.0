@@ -2,7 +2,7 @@
 
 
 
-void mogorushfunnicktest(){
+void mogorushfunnicktestt(){
 
 armPID.target_set(245);
 // Position: -248, 269, Angle: 335�
@@ -189,27 +189,6 @@ chassis.pid_wait();
 
 }//end
     void testsave(){
-// Position: 204, -25, Angle: 64�
-// the angle to ofset set zero (64)
-armPID.target_set(1850);
-
-chassis.pid_turn_set(24_deg, 90);
-chassis.pid_wait();
-
-chassis.pid_turn_set(24_deg, 90);
-chassis.pid_wait();
-
-chassis.pid_turn_set(260_deg, 90);
-chassis.pid_wait();
-
-intake2.move(127);
-
-chassis.pid_drive_set(-23_in, 110);
-chassis.pid_wait();
-
-chassis.pid_drive_set(12_in, 110);
-chassis.pid_wait();
-
 }//end
 void testthinge(){
 // Position: -255, 113, Angle: 182�
@@ -225,5 +204,48 @@ chassis.pid_wait();
 
 chassis.pid_drive_set(28_in, 110);
 chassis.pid_wait();
+
+}//end
+void midle_ring_rush(){
+// Position: -250, 117, Angle: 180�
+//set zero (180)
+chassis.pid_drive_set(-26_in, 110);
+chassis.pid_wait_until(-12_in);
+chassis.pid_speed_max_set(65);
+chassis.pid_wait();
+
+Piston11.set(true);
+chassis.pid_turn_set(135_deg, 90);
+chassis.pid_wait();
+
+// New entry
+
+chassis.pid_drive_set(20_in, 110);
+chassis.pid_wait();
+
+Piston737.set(true);
+
+pros::delay(250);
+
+chassis.pid_turn_set(155_deg, 90);
+chassis.pid_wait();
+
+chassis.pid_drive_set(3_in, 110);
+chassis.pid_wait();
+
+Piston22.set(true);
+
+pros::delay(450);
+
+chassis.pid_drive_set(-21_in, 110);
+chassis.pid_wait();
+
+chassis.pid_turn_set(258_deg, 90);
+chassis.pid_wait();
+intake2.move(127);
+chassis.pid_drive_set(23_in, 110);
+chassis.pid_wait();
+
+intake2.move(0);
 
 }//end
