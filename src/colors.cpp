@@ -1,5 +1,7 @@
 #include "main.h"
+#include "pros/misc.h"
 #include "subsystems.hpp"
+inline bool colordisable = false;
 
 
 
@@ -11,10 +13,10 @@ inline void colortask(){
   bool ison = true;
   int onoff = 0;
     while (true) {
-
+      if(intake2.get_actual_velocity() > 2){
       if(ison == true){
       if(onred == true){
-       if (Color.get_hue() >= 0 and Color.get_hue() <= 5){
+       if ((Color.get_hue() <= 345 && Color.get_hue() >= 361 && Color.get_proximity() > 230)   or  (Color.get_hue() <= 15 && Color.get_hue() >= 0 && Color.get_proximity() > 230)){
           Sorter.set(true);
          pros::delay(500);
          Sorter.set(false);
@@ -23,7 +25,7 @@ inline void colortask(){
       }else{
 
 
-       if (Color.get_hue() <= 230 && Color.get_hue() >= 150 && Color.get_proximity() > 215){
+       if (Color.get_hue() <= 235 && Color.get_hue() >= 200 && Color.get_proximity() > -230){
           Sorter.set(true);
          pros::delay(500);
           Sorter.set(false);
@@ -34,7 +36,7 @@ inline void colortask(){
       }
       }
 
-      if(master.get_digital_new_press(DIGITAL_LEFT)){
+    if(master.get_digital_new_press(DIGITAL_UP)){
         if(onred == true){
           onred = false;
           master.print(1, 0, "on RED");
@@ -45,7 +47,7 @@ inline void colortask(){
       }
       
 
-      if(master.get_digital_new_press(DIGITAL_RIGHT)){
+      if(master.get_digital_new_press(DIGITAL_DOWN)){
         if(ison){
           ison = false;
           master.print(1, 10, "OFF  ");
@@ -77,6 +79,7 @@ inline void colortask(){
           onoff = 0;
 
        }
+      
 
     }
     //count++;
@@ -89,7 +92,7 @@ inline void colortask(){
 
 
         pros::delay(20);
-        
+  }
   } 
 
   master.print(1, 0, "on red? =AAAAAA: %f");

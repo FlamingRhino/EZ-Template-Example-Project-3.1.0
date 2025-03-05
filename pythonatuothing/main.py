@@ -156,7 +156,7 @@ def replace_combined_list_with_function(function_name, functions, combined_list)
         loaded_function_name = function_name
 
 def interpolate(start, end, t):
-    return start + (end - start) * t
+    return start + (end - start) * t * 5
 
 def playback_combined_list(combined_list, player_pos, player_angle, dt):
     original_pos = player_pos.copy()  # Store the original position
@@ -222,12 +222,12 @@ def playback_combined_list(combined_list, player_pos, player_angle, dt):
             piston22_state = "true" in entry
             yield player_pos, player_angle, index
         # Add delay or animation if needed
-    player_pos = original_pos  # Restore the original position after playback
-    player_angle = original_angle  # Restore the original angle after playback
+    #player_pos = original_pos  # Restore the original position after playback
+    #player_angle = original_angle  # Restore the original angle after playback
 
 def interpolate_angle(start, end, t):
     delta = (end - start + 180) % 360 - 180
-    return start + delta * t * 1  # Increase the factor for faster interpolation
+    return start + delta * t * 5  # Increase the factor for faster interpolation
 
 # Variable to track if playback is active
 playback_active = False

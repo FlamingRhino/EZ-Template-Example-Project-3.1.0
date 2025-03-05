@@ -70,7 +70,12 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-    Auton{"test for auton maker rushes middle rings", midle_ring_rush },
+      Auton("red six plus one",redsixplusone),    
+        Auton{"test for auton maker rushes middle rings", midle_ring_rush },
+        {Auton("Red Qual Baker Auton", redqualbakerauton)},
+      Auton("PLane fun auton", awpstatefunworkPLANE),
+        Auton("solowapbutworks",solowapbutworks),
+
     Auton{"red side goal rush but has odom", odom_red_rush},
     Auton("odom test code", odomtestcool),
     Auton("awp odom thing",awpodomcode),
@@ -151,6 +156,7 @@ void initialize() {
  */
 void disabled() {
   // . . .
+  colordisable = true;
 }
 
 /**
@@ -178,6 +184,7 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
+  colordisable = false;
   chassis.pid_targets_reset();                // Resets PID targets to 0
   chassis.drive_imu_reset();                  // Reset gyro position to 0
   chassis.drive_sensor_reset();               // Reset drive sensors to 0
@@ -337,6 +344,8 @@ void opcontrol() {
 
   bool manualarm = false;
 
+  colordisable = false;
+
   
   while (true) {
 
@@ -360,9 +369,10 @@ void opcontrol() {
           error = target - rotation_sensor.get_angle();
      //arm.move(armPID.compute_error(error, arm.get_position()));
     //pistons-upersimple
-    Piston22.buttons(master.get_digital(DIGITAL_UP), master.get_digital(DIGITAL_DOWN));
+    Piston22.button_toggle(master.get_digital(DIGITAL_LEFT));
     Piston11.button_toggle(master.get_digital(DIGITAL_R1));
-    Piston737.button_toggle(master.get_digital(DIGITAL_R2));
+    Piston737.button_toggle(master.get_digital(DIGITAL_RIGHT));
+    PistonB29.button_toggle(master.get_digital(DIGITAL_R2));
 
    // Sorter.button_toggle(master.get_digital(DIGITAL_RIGHT));
 
