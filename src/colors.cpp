@@ -86,13 +86,13 @@ inline void colortask(){
 
 
 
-    
+      }
 
 
 
 
         pros::delay(20);
-  }
+
   } 
 
   master.print(1, 0, "on red? =AAAAAA: %f");

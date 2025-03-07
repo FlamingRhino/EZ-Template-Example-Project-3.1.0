@@ -48,5 +48,11 @@ void redqualbakerauton();
 void redsixplusone();
 void solowapbutworks();
 void awpstatefunworkPLANE();
+void midle_ring_rushblue();
+void redqualbakerautonblue();
+void redsixplusoneblue();
+void solowapbutworksblue();
+void awpstatefunworkPLANEBlue();
+
 
 void default_constants();
