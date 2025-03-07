@@ -12,7 +12,30 @@ inline void colortask(){
   int count = 0;
   bool ison = true;
   int onoff = 0;
+  master.print(1, 0, "on RED");
+  master.print(1, 10, "ON  ");
     while (true) {
+      
+    if(master.get_digital_new_press(DIGITAL_UP)){
+      if(onred == true){
+        onred = false;
+        master.print(1, 0, "on RED");
+      }else{
+        onred = true;
+        master.print(1, 0, "on BLUE");
+      }
+    }
+    
+
+    if(master.get_digital_new_press(DIGITAL_DOWN)){
+      if(ison){
+        ison = false;
+        master.print(1, 10, "OFF  ");
+      }else{
+        ison = true;
+        master.print(1, 10, "ON  ");
+      }
+    }
       if(intake2.get_actual_velocity() > 2){
       if(ison == true){
       if(onred == true){
@@ -25,7 +48,7 @@ inline void colortask(){
       }else{
 
 
-       if (Color.get_hue() <= 235 && Color.get_hue() >= 200 && Color.get_proximity() > -230){
+       if (Color.get_hue() <= 235 && Color.get_hue() >= 200 && Color.get_proximity() > 230){
           Sorter.set(true);
          pros::delay(500);
           Sorter.set(false);
@@ -35,30 +58,6 @@ inline void colortask(){
 
       }
       }
-
-    if(master.get_digital_new_press(DIGITAL_UP)){
-        if(onred == true){
-          onred = false;
-          master.print(1, 0, "on RED");
-        }else{
-          onred = true;
-          master.print(1, 0, "on BLUE");
-        }
-      }
-      
-
-      if(master.get_digital_new_press(DIGITAL_DOWN)){
-        if(ison){
-          ison = false;
-          master.print(1, 10, "OFF  ");
-        }else{
-          ison = true;
-          master.print(1, 10, "ON  ");
-        }
-      }
-
-      
-
 
      if (!(count % 6)) {
        //Only print every 50ms, the controller text update rate is slow
