@@ -18,14 +18,45 @@
 // These are out of 127
 
 
-inline const int DRIVE_SPEED = 110;
-inline const int TURN_SPEED = 70;
+inline int DRIVE_SPEED = 110;
+inline int TURN_SPEED = 70;
 inline const int SWING_SPEED = 90;
+inline int antijam = 0;
 
 
 
 // Constants
 ///
+
+inline void antijamtask(){
+  int timerthing = 0;
+  float intake2speed = intake2.get_target_velocity();
+  while (true) {
+  while(antijam == 1){
+    if(intake2.get_actual_velocity() + 100 < intake2.get_target_velocity() && intake2.get_target_velocity() > 0){
+      intake2.move(127);
+      timerthing++;
+      if (timerthing > 15){
+        intake2speed = intake2.get_target_velocity();
+        intake2.move(-127);
+        pros::delay(150);
+        if(intake2.get_target_velocity()< -110){
+          intake2.move(intake2speed);
+        }
+          
+
+          
+      }
+    }else{
+      timerthing = 0;
+    }
+    pros::delay(20);
+  }
+  pros::delay(20);
+}
+
+}
+
 inline void default_constants() {
   chassis.pid_heading_constants_set(11, 0, 20);
   //chassis.pid_drive_constants_set(28, 0.6, 150);

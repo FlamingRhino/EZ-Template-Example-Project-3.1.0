@@ -1,5 +1,6 @@
 #include "main.h"
 #include "pros/misc.h"
+#include "pros/rtos.hpp"
 #include "subsystems.hpp"
 inline bool colordisable = false;
 
@@ -12,17 +13,24 @@ inline void colortask(){
   int count = 0;
   bool ison = true;
   int onoff = 0;
+  pros::delay(250);
   master.print(1, 0, "on RED");
+  pros::delay(250);
   master.print(1, 10, "ON  ");
+  pros::delay(250);
     while (true) {
       
     if(master.get_digital_new_press(DIGITAL_UP)){
       if(onred == true){
         onred = false;
         master.print(1, 0, "on RED");
+        pros::delay(50);
       }else{
         onred = true;
         master.print(1, 0, "on BLUE");
+        pros::delay(50);
+
+
       }
     }
     
@@ -31,15 +39,19 @@ inline void colortask(){
       if(ison){
         ison = false;
         master.print(1, 10, "OFF  ");
+        pros::delay(50);
+
       }else{
         ison = true;
         master.print(1, 10, "ON  ");
+        pros::delay(50);
+
       }
     }
       if(intake2.get_actual_velocity() > 2){
       if(ison == true){
       if(onred == true){
-       if ((Color.get_hue() <= 345 && Color.get_hue() >= 361 && Color.get_proximity() > 230)   or  (Color.get_hue() <= 15 && Color.get_hue() >= 0 && Color.get_proximity() > 230)){
+       if ((Color.get_hue() >= 355 && Color.get_hue() <= 360 && Color.get_proximity() < 160)   or  (Color.get_hue() <= 23 && Color.get_hue() >= 0 && Color.get_proximity() < 160)){
           Sorter.set(true);
          pros::delay(500);
          Sorter.set(false);
@@ -48,12 +60,11 @@ inline void colortask(){
       }else{
 
 
-       if (Color.get_hue() <= 235 && Color.get_hue() >= 200 && Color.get_proximity() > 230){
+       if (Color.get_hue() <= 220 && Color.get_hue() >= 200 && Color.get_proximity() < 160){
           Sorter.set(true);
          pros::delay(500);
           Sorter.set(false);
-          master.print(1, 0, "on RED");
-         }
+                 }
 
 
       }
@@ -90,11 +101,11 @@ inline void colortask(){
 
 
 
-        pros::delay(20);
+        pros::delay(10);
 
   } 
 
-  master.print(1, 0, "on red? =AAAAAA: %f");
+ // master.print(1, 0, "on red? =AAAAAA: %f");
 }
 
 

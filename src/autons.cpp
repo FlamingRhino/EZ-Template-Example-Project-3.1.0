@@ -1,4 +1,5 @@
 #include "constantsauton.cpp"
+#include "subsystems.hpp"
 
 ///
 // Drive Example
@@ -304,6 +305,7 @@ void ringrushblue(){
 
 
 void sigawp(){
+
   Piston11.set(false);
   armPID.target_set(1845);
 
@@ -400,14 +402,17 @@ void sigawp(){
 
 
 
-  
-
 
   
 }
 
 
+
+
  void goodskillcode(){
+  DRIVE_SPEED = 127;
+  antijam = 1;
+  pros::Task antijamtasko(antijamtask);
 
   chassis.drive_imu_reset(120);
 
@@ -415,9 +420,9 @@ void sigawp(){
   chassis.pid_wait();
 
     Piston11.set(false);
-  armPID.target_set(1360);
+  armPID.target_set(1100);
 
-  pros::delay(600);
+  pros::delay(450);
   armPID.target_set(40);
 
   chassis.pid_turn_set(130_deg, TURN_SPEED, shortest);
@@ -474,15 +479,17 @@ void sigawp(){
     chassis.pid_drive_set(-15,DRIVE_SPEED);
     chassis.pid_wait_quick_chain();
 
-    chassis.pid_drive_set(15,DRIVE_SPEED);
+    chassis.pid_drive_set(10,DRIVE_SPEED);
     pros::delay(50);
     Piston11.set(false);
+    intake2.move(-127);
     chassis.pid_wait();
 
     chassis.pid_turn_set(270_deg, TURN_SPEED, shortest);
     chassis.pid_wait();
 
     chassis.pid_drive_set(-60,DRIVE_SPEED, true);
+    intake2.move(0);
     chassis.pid_wait();
 
         chassis.pid_drive_set(-20,50);
@@ -506,7 +513,7 @@ void sigawp(){
 
 void skillaurtopart2(){
       Piston11.set(true);
-      intake2.move(127);
+      intake2.move(110);
 
 
     chassis.drive_imu_reset(270);
@@ -553,17 +560,20 @@ void skillaurtopart2(){
     chassis.pid_drive_set(10,DRIVE_SPEED);
     pros::delay(20);
     Piston11.set(false);
+    intake2.move(-127);
     chassis.pid_wait();
 
-    chassis.pid_turn_set(5_deg,TURN_SPEED, shortest);
+    chassis.pid_turn_set(10_deg,TURN_SPEED, shortest);
     chassis.pid_wait();
+
 
     armPID.target_set(255);
+    
 
-    chassis.pid_drive_set(42,DRIVE_SPEED);
+    chassis.pid_drive_set(33,DRIVE_SPEED);
     chassis.pid_wait_quick_chain();
 
-        chassis.pid_drive_set(10,50);
+        chassis.pid_drive_set(15,50);
     chassis.pid_wait();
 
     pros::delay(900);
@@ -573,9 +583,9 @@ void skillaurtopart2(){
 
     intake2.move(0);
 
-    armPID.target_set(1170);
+    armPID.target_set(1000);
 
-    chassis.pid_drive_set(7,DRIVE_SPEED);
+    chassis.pid_drive_set(8,DRIVE_SPEED);
     chassis.pid_wait();
 
     chassis.pid_drive_set(-13.5,DRIVE_SPEED);
@@ -590,7 +600,9 @@ void skillaurtopart2(){
 void skillautonpart3(){
    intake2.move(40);
   armPID.target_set(10);
+   pros::delay(200); 
   chassis.drive_imu_reset(90);
+
 
     chassis.pid_turn_set(90, TURN_SPEED, shortest);
     chassis.pid_wait();
@@ -600,7 +612,7 @@ void skillautonpart3(){
     chassis.pid_wait();
 
 
-    chassis.pid_drive_set(25,DRIVE_SPEED,true);
+    chassis.pid_drive_set(28,DRIVE_SPEED,true);
     chassis.pid_wait();
 
     chassis.pid_turn_set(270, TURN_SPEED, shortest);
@@ -623,7 +635,9 @@ void skillautonpart3(){
     chassis.pid_drive_set(-17,DRIVE_SPEED, true);
     chassis.pid_wait_quick_chain();
 
-    chassis.pid_drive_set(-18,DRIVE_SPEED,true);
+    chassis.pid_drive_set(-20,DRIVE_SPEED,true);
+    chassis.pid_wait_until(-8_in);
+chassis.pid_speed_max_set(35);
     chassis.pid_wait();
 
     
@@ -683,7 +697,7 @@ chassis.pid_wait();
 
 
 
-          chassis.pid_drive_set(-14 ,DRIVE_SPEED);
+          chassis.pid_drive_set(-18 ,DRIVE_SPEED);
   chassis.pid_wait();
 
       chassis.pid_drive_set(10 ,30);
@@ -692,10 +706,10 @@ chassis.pid_wait();
       chassis.pid_drive_set(26 ,DRIVE_SPEED);
     chassis.pid_wait_quick_chain();
 
-      chassis.pid_turn_set(65, TURN_SPEED, shortest);
+      chassis.pid_turn_set(72, TURN_SPEED, shortest);
       chassis.pid_wait();
 
-      chassis.pid_drive_set(80 ,DRIVE_SPEED);
+      chassis.pid_drive_set(88 ,DRIVE_SPEED);
     chassis.pid_wait_quick_chain();
 
       chassis.pid_drive_set(-18 ,DRIVE_SPEED);
@@ -706,7 +720,7 @@ chassis.pid_wait();
 
       chassis.pid_drive_set(-40 ,DRIVE_SPEED);
 
-      armPID.target_set(1600);
+      armPID.target_set(1100);
       intake2.move(0); 
 
 
@@ -714,6 +728,8 @@ chassis.pid_wait();
 
       chassis.pid_drive_set(-20 ,DRIVE_SPEED);
       chassis.pid_wait_quick_chain();
+
+      armPID.target_set(500);
 
       chassis.pid_drive_set(10 ,DRIVE_SPEED);
       chassis.pid_wait();

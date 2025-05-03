@@ -12,19 +12,21 @@
 
   inline pros::Rotation rotation_sensor(15);
 
-  inline ez::Piston Piston11('E',true);
-  inline ez::Piston Piston22('F');
+  inline ez::Piston Piston11('H');
+  inline ez::Piston Piston22('B');
   inline ez::Piston Piston737('G');
-  inline ez::Piston Sorter('H');
-  inline ez::Piston PistonB29('D');
+  inline ez::Piston Sorter('Z');
+  inline ez::Piston PistonB29('Z');
+  inline ez::Piston hangthing('A');
+inline ez::Piston PTO('C');
 
   //NICK IF YOU SEE THIS IT WORKS :) o(*￣▽￣*)ブ
 
   //{port1,port2} put a - to revese 
   //INLINE
-  inline pros::MotorGroup intake2({10});
-  inline pros::Motor r_arm(4);
-  inline pros::Motor l_arm(-18);
+  inline pros::MotorGroup intake2({14});
+  inline pros::Motor r_arm(-11);
+  inline pros::Motor l_arm(20);
 
   inline pros::Optical Color(11);
 

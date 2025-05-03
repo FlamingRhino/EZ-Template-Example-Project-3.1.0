@@ -1,6 +1,7 @@
 #include "main.h"
 #include "EZ-Template/auton.hpp"
 #include "EZ-Template/util.hpp"
+#include "autons.hpp"
 #include "colors.cpp"
 #include "pros/misc.h"
 #include "subsystems.hpp"
@@ -18,9 +19,10 @@ int time_form_op_start = 0;
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {-14, -15, -16},     // Left Chassis Ports (negative port will reverse it!)    
-    {9, 17, 6},  // Right Chassis Ports (negative port will reverse it!)
-    1,      // IMU Port
+    {2, -1, -5}, // Left Chassis Ports (negative port will reverse it!)
+    {-9, 10, 7, }, 
+ // Right Chassis Ports (negative port will reverse it!)
+    3,      // IMU Port
     3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
     450);   // Wheel RPM
 
@@ -71,16 +73,14 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-    Auton{"the auton we are testing right now", redqualbakerautonblue},
-    Auton{"test for auton maker rushes middle rings", midle_ring_rush },
-      Auton("red six plus one",redsixplusone),    
-        {Auton("Red Qual Baker Auton", redqualbakerauton)},
-      Auton("PLane fun auton", awpstatefunworkPLANE),
-        Auton("solowapbutworks",solowapbutworks),
-
-    Auton{"red side goal rush but has odom", odom_red_rush},
-    Auton("odom test code", odomtestcool),
-    Auton("awp odom thing",awpodomcode),
+    Auton{"THIS IS THE FINALS CODE FOR RED THATS KIND OF IT", midle_ring_rush },
+    Auton("THIS IS THE FINALS CODE FOR BLUE BLUE THATS KIND OF IT ", midle_ring_rushblue),
+    Auton("RED SIDE STATE AWP \n START THIS CODE ON RED NEGTIVE A-STAKE \n YOU CAN ALSO START THIS CODE ON BLUE POS A-STAKE \n THIS CODE WILL GET THE MIN. FOR AWP AT STATES.", awpstatefunworkPLANE),
+    {Auton("RED SIDE BAKER AUTON WITH WALL STAKE \n START THIS CODE ON THE RED POS A-STAKE \n RYAN DOES NOT BELIVE IN THIS CODE \n NICK ", redqualbakerauton)},
+    Auton{"THIS IS THE FINALS CODE FOR RED THATS KIND OF IT", midle_ring_rush },
+    Auton("THIS IS THE OLD NORMAL AWP CODE \n RYAAAAAAAN PLEASE FIX IF WE WANT TO USE" , red_right_awp),
+    Auton("Skills skills jojooppopojojoppjojoppojojpjopojpopopojopjpopopjo", goodskillcode),
+        {Auton("RED SIDE BAKER AUTON WITH WALL STAKE \n START THIS CODE ON THE RED POS A-STAKE \n RYAN DOES NOT BELIVE IN THIS CODE \n NICK ", redqualbakerauton)},
     Auton("MOGO RUSH RED ANICNECE STAKE", mogorushwallblue),
     Auton("MOGO RUSH RED ANICNECE STAKE", mogorushfun),
     Auton("BLUe RGIHT SIDE AWPAWPAWPAWPAWPAWPAWPAWP AWP you can also use this on the left red side", blue_right_awp),
@@ -100,10 +100,6 @@ void initialize() {
     Auton("blue side goal rush This is the stake code for the blue side should work  ", goalrushblue),
      Auton("skills code which might work, SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS SKILLS SKILL SKILLS", scillsauto),
      Auton("thia will start skills at the back side, shoud work", skillptwo),
-      Auton("red far side but also work with RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED RED ", red_far_side),
-      Auton("Blue far side, get most of win point BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE BLUE", blue_far_side),
-      Auton("go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward go forward go forward go forward  go forward go forward", goforwardauton),
-      Auton("PID loop test code to move up one foot and turn around and come back", drive_example),
       Auton("Example Turn\n\nTurn 3 times.", turn_example),
       Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
       Auton("Drive and Turn\n\nSlow down during drive.", wait_until_change_speed),
@@ -118,6 +114,12 @@ void initialize() {
       Auton("1 top ring, 2 ring, goal rush ",mogorushfunnicktest),
       Auton("thing", backup),
       Auton{"test to see the pos of odom pods or something", measure_offsets},
+      {Auton("RED SIDE BAKER AUTON WITH WALL STAKE \n START THIS CODE ON THE RED POS A-STAKE \n RYAN DOES NOT BELIVE IN THIS CODE \n THIS IS RED RED RED RED RED ", redqualbakerauton)},
+      Auton{"THIS IS THE FINALS CODE FOR BLUE BLUE THATS KIND OF IT", midle_ring_rush },
+      Auton("THIS IS THE OLD NORMAL AWP CODE BUT BLUE \n RYAAAAAAAN PLEASE FIX IF WE WANT TO USE" , blue_right_awp),
+          Auton("BLUE SIDE BAKER AUTON WITH WALL STAKE \n START THIS CODE ON THE BLUE POS A-STAKE \n RYAN REALY DOES NOT BELIVE IN THIS CODE \n NICK ", redqualbakerautonblue),
+          Auton("BLUE SIDE STATE AWP \n START THIS CODE ON BLUE NEGTIVE A-STAKE \n YOU CAN ALSO START THIS CODE ON RED BLUE POS A-STAKE \n THIS CODE WILL GET THE MIN. FOR AWP AT STATES.", awpstatefunworkPLANEBlue),
+          
     
   });
 
@@ -126,7 +128,7 @@ void initialize() {
   ez::as::initialize();
   master.rumble(".");
 
-  Color.set_led_pwm(100);
+  Color.set_led_pwm(0);
 
   pros::Task colorTASK(colortask);
 
@@ -275,7 +277,7 @@ void screen_print_tracker(ez::tracking_wheel *tracker, std::string name, int lin
  * and will help you debug problems you're having
  */
 void ez_screen_task() {
-  while (true) {
+  while (1==0) {
     // Only run this when not connected to a competition switch
     if (!pros::competition::is_connected()) {
       // Blank page for odom debugging
@@ -317,6 +319,8 @@ void opcontrol() {
 
   
   // This is preference to what you like to drive on
+  antijam = 0;
+
    
   pros::motor_brake_mode_e_t driver_preference_brake = MOTOR_BRAKE_HOLD;
 
@@ -350,6 +354,7 @@ void opcontrol() {
 
   
   while (true) {
+    antijam = 0;
 
     // PID Tuner
     // After you find values that you're happy with, you'll have to set them in auton.cpp
@@ -371,14 +376,29 @@ void opcontrol() {
           error = target - rotation_sensor.get_angle();
      //arm.move(armPID.compute_error(error, arm.get_position()));
     //pistons-upersimple
-    Piston22.button_toggle(master.get_digital(DIGITAL_LEFT));
-    Piston11.button_toggle(master.get_digital(DIGITAL_R1));
+    if (manualarm == false){
+          Piston22.button_toggle(master.get_digital(DIGITAL_LEFT));
+         Piston11.button_toggle(master.get_digital(DIGITAL_R1));
     Piston737.button_toggle(master.get_digital(DIGITAL_RIGHT));
-    PistonB29.button_toggle(master.get_digital(DIGITAL_R2));
+    }else{
+      PTO.button_toggle(master.get_digital(DIGITAL_RIGHT));
+      hangthing.button_toggle(master.get_digital(DIGITAL_LEFT));
+      if (master.get_digital(DIGITAL_R1) == 1){
+        chassis.drive_set(127,  127);
+      }else if (master.get_digital(DIGITAL_R2) == 1){
+      chassis.drive_set(-127,  -127);
+      }else{
+      chassis.drive_set(0,  0);
+  }
+
+}
+
+    //PistonB29.button_toggle(master.get_digital(DIGITAL_R2));
 
    // Sorter.button_toggle(master.get_digital(DIGITAL_RIGHT));
 
-    //intake code
+    //intake code 
+
     if (master.get_digital(DIGITAL_L1) == 1){
       intake2.move(127);
     }
@@ -412,7 +432,7 @@ void opcontrol() {
 
         }else if (armcurrentpos  == 0){
 
-          armPID.target_set(250);
+          armPID.target_set(255);
           armcurrentpos = 1;
 
         
@@ -436,13 +456,13 @@ void opcontrol() {
     
      }
     } else{
-      if( armPID.target_get() <= 2200){
+      if( armPID.target_get() <= 2200000){
       if(master.get_digital(DIGITAL_X)){
         armPID.target_set(armPID.target_get() + 30 );
       }
 
       }
-      if(armPID.target_get() >= 5){
+      if(armPID.target_get() >= -50000){
       if(master.get_digital(DIGITAL_B)){
         armPID.target_set(armPID.target_get() - 30 );
       }
@@ -477,7 +497,7 @@ void opcontrol() {
     count++;
 
         if (ez::as::page_blank_is_on(0)) {
-        // ez::screen_print("facing: " + util::to_string_with_precision( chassis.drive_imu_get()), 1);
+          ez::screen_print("facing: " + util::to_string_with_precision( chassis.drive_imu_get()), 1);
     } 
 
 
