@@ -4,6 +4,7 @@
 #include "autons.hpp"
 #include "colors.cpp"
 #include "pros/misc.h"
+#include "pros/motors.h"
 #include "subsystems.hpp"
 
 #include "constantsauton.cpp"
@@ -384,13 +385,34 @@ void opcontrol() {
       PTO.button_toggle(master.get_digital(DIGITAL_RIGHT));
       hangthing.button_toggle(master.get_digital(DIGITAL_LEFT));
       if (master.get_digital(DIGITAL_R1) == 1){
-        chassis.drive_set(127,  127);
+        //chassis.drive_set(127,  127);
       }else if (master.get_digital(DIGITAL_R2) == 1){
-      chassis.drive_set(-127,  -127);
+      //chassis.drive_set(-127,  -127);
       }else{
-      chassis.drive_set(0,  0);
-  }
-
+      //chassis.drive_set(0,  0);
+      }
+      if(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) > 40){
+        armPID.target_set(l_arm.get_position() + 80 );
+       // l_arm.move(70);
+       // r_arm.move(70);
+      }else if(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) < -40){
+        armPID.target_set(l_arm.get_position() - 80 );
+       // l_arm.move(-70);
+      //  r_arm.move(-70);
+      }else {
+       // l_arm.move(0);
+       // r_arm.move(0);
+       //armPID.target_set(l_arm.get_position() );
+      //  l_arm.brake();
+      //  r_arm.brake();
+      }
+      if(l_arm.get_position() < 290){
+        hangthing.set(0);
+      }
+      if(l_arm.get_position() > 1000){
+        hangthing.set(1);
+      }
+  
 }
 
     //PistonB29.button_toggle(master.get_digital(DIGITAL_R2));
@@ -412,6 +434,22 @@ void opcontrol() {
         manualarm = false;
       }else{
         manualarm = true;
+        chassis.pid_targets_reset();                // Resets PID targets to 0
+        chassis.drive_imu_reset();                  // Reset gyro position to 0
+        chassis.drive_sensor_reset();               // Reset drive sensors to 0
+        chassis.pid_drive_set(4_in, 100);
+        chassis.pid_wait();
+        master.rumble("-");
+        armPID.target_set(590);
+        while (l_arm.get_position() < 580){
+          pros::delay(10);
+        }
+        hangthing.set(1);
+        chassis.drive_set(-70, -70);
+        PTO.set(1);
+        pros::delay(500);
+        chassis.drive_set(0, 0);
+        
       }
     }
 
@@ -425,7 +463,7 @@ void opcontrol() {
       //pos 2    
          if (armcurrentpos  ==  1){
 
-          armPID.target_set(1000);
+          armPID.target_set(1200);
           target = 0;
           armcurrentpos = 0;
         
@@ -452,19 +490,19 @@ void opcontrol() {
 
       if (master.get_digital(DIGITAL_A )){
 
-        armPID.target_set(1850);
+        armPID.target_set(980);
     
      }
     } else{
       if( armPID.target_get() <= 2200000){
       if(master.get_digital(DIGITAL_X)){
-        armPID.target_set(armPID.target_get() + 30 );
+        armPID.target_set(armPID.target_get() + 3 );
       }
 
       }
       if(armPID.target_get() >= -50000){
       if(master.get_digital(DIGITAL_B)){
-        armPID.target_set(armPID.target_get() - 30 );
+        armPID.target_set(armPID.target_get() - 3 );
       }
       }
 

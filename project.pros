@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "EZ-Template-Example",
+    "project_name": "EZ",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -423,7 +423,8 @@
     },
     "upload_options": {
       "description": "making code ez",
-      "after": "run"
+      "after": "run",
+      "icon": "pros"
     },
     "use_early_access": false
   }

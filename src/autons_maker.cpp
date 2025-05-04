@@ -670,13 +670,13 @@ chassis.pid_wait_quick();
 chassis.pid_turn_set(204_deg, 127);
 chassis.pid_wait_quick();
 
-chassis.pid_drive_set(25_in, 127);
+chassis.pid_drive_set(40_in, 127);
 chassis.pid_wait_quick();
 
-//pros::delay(250);
+pros::delay(250);
 
-//chassis .pid_drive_set  (-14_in, 90);
-//chassis.pid_wait_quick();
+chassis .pid_drive_set  (-14_in, 90);
+chassis.pid_wait_quick();
 
 chassis.pid_turn_set(91_deg, 127);
 chassis.pid_wait_quick();
