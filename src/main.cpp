@@ -400,11 +400,11 @@ void opcontrol() {
       //chassis.drive_set(0,  0);
       }
       if(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) > 40){
-        armPID.target_set(l_arm.get_position() + 80 );
+        armPID.target_set(l_arm.get_position() + 40 );
        // l_arm.move(70);
        // r_arm.move(70);
       }else if(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) < -40){
-        armPID.target_set(l_arm.get_position() - 80 );
+        armPID.target_set(l_arm.get_position() - 40 );
        // l_arm.move(-70);
       //  r_arm.move(-70);
       }else {
