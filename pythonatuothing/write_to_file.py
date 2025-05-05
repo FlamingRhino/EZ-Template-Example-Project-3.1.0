@@ -8,7 +8,7 @@ def write_to_filef(event, combined_list, text_box_open, screen, font, pygame, fu
     
     while text_box_open:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT: 
                 text_box_open = False
                 pygame.quit()
                 quit()

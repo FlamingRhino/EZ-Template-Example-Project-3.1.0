@@ -13,12 +13,12 @@
   inline pros::Rotation rotation_sensor(15);
 
   inline ez::Piston Piston11('H');
-  inline ez::Piston Piston22('B');
-  inline ez::Piston Piston737('G');
+  inline ez::Piston Piston22('B'); // left donker
+  inline ez::Piston Piston737('G'); // right donker 
   inline ez::Piston Sorter('Z');
   inline ez::Piston PistonB29('Z');
   inline ez::Piston hangthing('A');
-inline ez::Piston PTO('C');
+  inline ez::Piston PTO('C');
 
   //NICK IF YOU SEE THIS IT WORKS :) o(*￣▽￣*)ブ
 
@@ -28,7 +28,7 @@ inline ez::Piston PTO('C');
   inline pros::Motor r_arm(-11);
   inline pros::Motor l_arm(20);
 
-  inline pros::Optical Color(11);
+  inline pros::Optical Color(12);
 
 
 

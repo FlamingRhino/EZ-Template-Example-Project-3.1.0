@@ -11,6 +11,7 @@
 
 
 int time_form_op_start = 0;
+static int intakespeed = 127;
 
 /////
 // For installation, upgrading, documentations, and tutorials, check out our website!
@@ -74,6 +75,7 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+    {Auton("RED SIDE BAKER AUTON WITH WALL STAKE \n START THIS CODE ON THE RED POS A-STAKE \n RYAN DOES NOT BELIVE IN THIS CODE \n NICK ", redqualbakerauton)},
     Auton{"THIS IS THE FINALS CODE FOR RED THATS KIND OF IT", midle_ring_rush },
     Auton("THIS IS THE FINALS CODE FOR BLUE BLUE THATS KIND OF IT ", midle_ring_rushblue),
     Auton("RED SIDE STATE AWP \n START THIS CODE ON RED NEGTIVE A-STAKE \n YOU CAN ALSO START THIS CODE ON BLUE POS A-STAKE \n THIS CODE WILL GET THE MIN. FOR AWP AT STATES.", awpstatefunworkPLANE),
@@ -129,7 +131,7 @@ void initialize() {
   ez::as::initialize();
   master.rumble(".");
 
-  Color.set_led_pwm(0);
+  Color.set_led_pwm(100);
 
   pros::Task colorTASK(colortask);
 
@@ -225,7 +227,7 @@ void nicksl2thing(){
   //this is how long you wait for the intake to revese
   pros::delay(120);
   if (master.get_digital(DIGITAL_L2) == 1){
-      intake2.move(-127);
+      intake2.move(-intakespeed);
       bool nicktoggle = true;
       while (nicktoggle == true)
       {
@@ -288,7 +290,9 @@ void ez_screen_task() {
           // Display X, Y, and Theta
           ez::screen_print("x: " + util::to_string_with_precision(chassis.odom_x_get()) +
                                "\ny: " + util::to_string_with_precision(chassis.odom_y_get()) +
-                               "\na: " + util::to_string_with_precision(chassis.odom_theta_get()),
+                               "\na: " + util::to_string_with_precision(chassis.odom_theta_get()) +
+                               "\nmotor temp left" + util::to_string_with_precision(chassis.left_motors[0].get_temperature()) + util::to_string_with_precision(chassis.left_motors[1].get_temperature()) +util::to_string_with_precision(chassis.left_motors[2].get_temperature()) +
+                               "\nmotor temp right" + util::to_string_with_precision(chassis.right_motors[0].get_temperature()) + util::to_string_with_precision(chassis.right_motors[1].get_temperature()) + util::to_string_with_precision(chassis.right_motors[2].get_temperature()),
                            1);  // Don't override the top Page line
 
           // Display all trackers that are being used
@@ -353,6 +357,10 @@ void opcontrol() {
 
   colordisable = false;
 
+  bool fristtier = false;
+
+
+
   
   while (true) {
     antijam = 0;
@@ -406,10 +414,18 @@ void opcontrol() {
       //  l_arm.brake();
       //  r_arm.brake();
       }
-      if(l_arm.get_position() < 290){
+      if (!fristtier){
+      if(l_arm.get_position() < 250){
         hangthing.set(0);
+        fristtier = true;
       }
-      if(l_arm.get_position() > 1000){
+      }else{
+        if(l_arm.get_position() < 580){
+          hangthing.set(0);
+          fristtier = true;
+        }
+      }
+      if(l_arm.get_position() > 800){
         hangthing.set(1);
       }
   
@@ -422,7 +438,7 @@ void opcontrol() {
     //intake code 
 
     if (master.get_digital(DIGITAL_L1) == 1){
-      intake2.move(127);
+      intake2.move(intakespeed);
     }
     //intake revse
     if (master.get_digital(DIGITAL_L2) == 1){
@@ -432,6 +448,10 @@ void opcontrol() {
     if (master.get_digital_new_press(DIGITAL_Y)){
       if(manualarm == true){
         manualarm = false;
+        armPID.target_set(10);
+        PTO.set(0);
+        hangthing.set(0);
+
       }else{
         manualarm = true;
         chassis.pid_targets_reset();                // Resets PID targets to 0
@@ -445,13 +465,21 @@ void opcontrol() {
           pros::delay(10);
         }
         hangthing.set(1);
-        chassis.drive_set(-70, -70);
+        chassis.drive_set(-30, -30);
         PTO.set(1);
         pros::delay(500);
         chassis.drive_set(0, 0);
         
       }
     }
+
+    if (master.get_digital_new_press(DIGITAL_R2)){
+      if (intakespeed == 127){
+        intakespeed = 50;
+    }else{
+      intakespeed = 127;
+    }
+  }
 
 
 
@@ -496,13 +524,13 @@ void opcontrol() {
     } else{
       if( armPID.target_get() <= 2200000){
       if(master.get_digital(DIGITAL_X)){
-        armPID.target_set(armPID.target_get() + 3 );
+        armPID.target_set(armPID.target_get() + 6);
       }
 
       }
       if(armPID.target_get() >= -50000){
       if(master.get_digital(DIGITAL_B)){
-        armPID.target_set(armPID.target_get() - 3 );
+        armPID.target_set(armPID.target_get() - 6);
       }
       }
 
@@ -535,7 +563,14 @@ void opcontrol() {
     count++;
 
         if (ez::as::page_blank_is_on(0)) {
-          ez::screen_print("facing: " + util::to_string_with_precision( chassis.drive_imu_get()), 1);
+          ez::screen_print("x: " + util::to_string_with_precision(chassis.odom_x_get()) +
+                               "\ny: " + util::to_string_with_precision(chassis.odom_y_get()) +
+                               "\na: " + util::to_string_with_precision(chassis.odom_theta_get()) +
+                               "\nmotor temp left" + util::to_string_with_precision(chassis.left_motors[0].get_temperature()) + util::to_string_with_precision(chassis.left_motors[1].get_temperature()) +util::to_string_with_precision(chassis.left_motors[2].get_temperature()) +
+                               "\nmotor temp right" + util::to_string_with_precision(chassis.right_motors[0].get_temperature()) + util::to_string_with_precision(chassis.right_motors[1].get_temperature()) + util::to_string_with_precision(chassis.right_motors[2].get_temperature())+
+                               "\n temp intake" + util::to_string_with_precision(intake2.get_temperature()),
+                           1);  // Don't override the top Page line
+
     } 
 
 
@@ -569,4 +604,4 @@ void opcontrol() {
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
-}
+  }

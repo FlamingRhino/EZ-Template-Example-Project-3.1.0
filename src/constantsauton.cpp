@@ -33,12 +33,12 @@ inline void antijamtask(){
   float intake2speed = intake2.get_target_velocity();
   while (true) {
   while(antijam == 1){
-    if(intake2.get_actual_velocity() + 100 < intake2.get_target_velocity() && intake2.get_target_velocity() > 0){
+    if(intake2.get_actual_velocity() + 100 < intake2.get_target_velocity() && intake2.get_target_velocity() > 0 && false){
       intake2.move(127);
       timerthing++;
       if (timerthing > 15){
         intake2speed = intake2.get_target_velocity();
-        intake2.move(-127);
+        //intake2.move(-127);
         pros::delay(150);
         if(intake2.get_target_velocity()< -110){
           intake2.move(intake2speed);
@@ -57,6 +57,11 @@ inline void antijamtask(){
 
 }
 
+static bool timer(int time) {
+  pros::delay(time);
+  return 1;
+}
+
 inline void default_constants() {
   chassis.pid_heading_constants_set(11, 0, 20);
   //chassis.pid_drive_constants_set(28, 0.6, 150);
@@ -67,7 +72,7 @@ inline void default_constants() {
   chassis.pid_odom_boomerang_constants_set(1.1, 0, 30.5);  // Angular control for boomerang motions
 
 
-  chassis.pid_turn_exit_condition_set(150_ms, 4_deg, 450_ms, 8_deg, 0_ms, 0_ms);
+  chassis.pid_turn_exit_condition_set(150_ms, 4_deg, 450_ms, 8_deg, 300_ms, 300_ms);
   chassis.pid_swing_exit_condition_set(80_ms, 3_deg, 250_ms, 7_deg, 500_ms, 500_ms);
   chassis.pid_drive_exit_condition_set(80_ms, 1_in, 250_ms, 3_in, 500_ms, 500_ms);
   chassis.pid_odom_turn_exit_condition_set(90_ms, 3_deg, 250_ms, 7_deg, 500_ms, 750_ms);

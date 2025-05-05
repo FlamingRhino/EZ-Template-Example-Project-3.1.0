@@ -13,6 +13,7 @@ inline void colortask(){
   int count = 0;
   bool ison = true;
   int onoff = 0;
+  float oldspped = 0;
   pros::delay(250);
   master.print(1, 0, "on RED");
   pros::delay(250);
@@ -52,18 +53,26 @@ inline void colortask(){
       if(ison == true){
       if(onred == true){
        if ((Color.get_hue() >= 355 && Color.get_hue() <= 360 && Color.get_proximity() < 160)   or  (Color.get_hue() <= 23 && Color.get_hue() >= 0 && Color.get_proximity() < 160)){
-          Sorter.set(true);
-         pros::delay(500);
-         Sorter.set(false);
+        oldspped = intake2.get_target_velocity();
+         pros::delay(50);
+         intake2.move(-127);
+         pros::delay(150);
+         if (intake2.get_target_velocity() == -127){
+           intake2.move(oldspped);
+         }
         }
 
       }else{
 
 
-       if (Color.get_hue() <= 220 && Color.get_hue() >= 200 && Color.get_proximity() < 160){
-          Sorter.set(true);
-         pros::delay(500);
-          Sorter.set(false);
+       if (Color.get_hue() <= 245 && Color.get_hue() >= 215 && Color.get_proximity() < 40){
+        oldspped = intake2.get_target_velocity();
+        //pros::delay(50);
+        intake2.move(-127);
+        pros::delay(300);
+        if (intake2.get_target_velocity() != -127){
+          intake2.move(oldspped);
+        }
                  }
 
 

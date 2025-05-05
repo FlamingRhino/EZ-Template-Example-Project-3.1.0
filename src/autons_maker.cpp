@@ -217,7 +217,9 @@ void midle_ring_rush(){
 // Position: -250, 117, Angle: 180�
 //set zero (180)
 //Piston22.set(true);
-antijam = 1;
+antijam = 0;
+
+//antijam = 1;
 pros::Task antijamtasko(antijamtask);
 chassis.pid_drive_set(-27_in, 127);
 chassis.pid_wait_until(-12_in);
@@ -234,7 +236,7 @@ chassis.pid_wait();
 intake2.move(0);
 
 
-chassis.pid_drive_set(10_in, 110);
+chassis.pid_drive_set(9_in, 110);
 chassis.pid_wait_quick_chain();
 
 PistonB29.set(true);
@@ -247,17 +249,17 @@ Piston737.set(true);
 
 pros::delay(250);
 
-chassis.pid_turn_set(148_deg, 110, true);
+chassis.pid_turn_set(145_deg, 110, true);
 chassis.pid_wait();
 
-chassis.pid_drive_set(5_in, 110);
+chassis.pid_drive_set(6_in, 110);
 chassis.pid_wait();
 
 Piston22.set(true);
 
 pros::delay(450);
 
-chassis.pid_drive_set(-18.5_in, 110);
+chassis.pid_drive_set(-19_in, 110);
 chassis.pid_wait();
 
 PistonB29.set(false);
@@ -271,7 +273,7 @@ chassis.pid_wait_quick_chain();
 
 
 chassis.pid_turn_set(283_deg, 90);
-chassis.pid_wait_quick();
+chassis.pid_wait_quick_chain();
 
 intake2.move(127);
 
@@ -280,7 +282,7 @@ Piston22.set(false);
 pros::delay(200);
 
 chassis.pid_turn_set(268_deg, 110, shortest, true);
-chassis.pid_wait();
+chassis.pid_wait_quick_chain();
 
 chassis.pid_drive_set(28_in, 110);
 chassis.pid_wait();
@@ -296,23 +298,35 @@ pros::delay(250);
 chassis.pid_turn_set(330_deg, 100, true);
 chassis.pid_wait();
 
-chassis.pid_drive_set(45_in, 110, true);
+chassis.pid_drive_set(50_in, 110, true);
 chassis.pid_wait_until(30_in);
 chassis.pid_speed_max_set(70);
 chassis.pid_wait_until(35_in);
 antijam = 0;
 chassis.pid_wait();
 
-chassis.pid_drive_set(-16_in, 90);
-chassis.pid_wait_quick_chain();
+intake2.move(0);
 
-chassis.pid_drive_set(12_in, 90);
-chassis.pid_wait_quick_chain();
+armPID.target_set(255);
 
-antijam = 1;
+pros::delay(250);
 
 
-pros::delay(350);
+//armPID.target_set(900);
+
+//chassis.pid_drive_set(-16_in, 90);
+
+//chassis.pid_wait_quick_chain();
+
+//chassis.pid_drive_set(14_in, 90);
+//chassis.pid_wait_until(5_in);
+//armPID.target_set(255);
+//chassis.pid_wait_quick_chain();
+
+//antijam = 1;
+
+
+pros::delay(650);
 
 chassis.pid_drive_set(-24_in, 127);
 chassis.pid_wait_quick_chain();
@@ -326,10 +340,12 @@ chassis.pid_wait_quick_chain();
 //armPID.target_set(1850);
 //armPID.target_set(1850);
 //armPID.target_set(1850);
-chassis.pid_turn_set(213_deg, 90);
+chassis.pid_turn_set(218_deg, 90);
 chassis.pid_wait();
 
-chassis.pid_drive_set(30_in, 110);
+chassis.pid_drive_set(26_in, 110);
+intake2.move(127);
+armPID.target_set(1150);
 chassis.pid_wait();
 
 //armPID.target_set(1850);
@@ -340,6 +356,7 @@ void redqualbakerauton(){
 // Position: -286, 78, Angle: 243�
 //set zyrero (243)
 chassis.drive_imu_reset(243);
+antijam = 0;
 
 armPID.target_set(1100);
 
@@ -352,9 +369,9 @@ pros::delay(200);
 chassis.pid_turn_set(200_deg, 90, true);
 chassis.pid_wait();
 
-chassis.pid_drive_set(-38_in, 110);
-chassis.pid_wait_until(-13_in);
-chassis.pid_speed_max_set(25);
+chassis.pid_drive_set(-38_in, 110, true);
+chassis.pid_wait_until(-20_in);
+chassis.pid_speed_max_set(35);
 chassis.pid_wait_until(-35_in);
 Piston11.set(true);
 intake2.move(127);
@@ -387,17 +404,18 @@ pros::delay(300);
 
 PistonB29.set(false);
 
-//chassis.pid_turn_set(330_deg, 90);
-//chassis.pid_wait_quick();
+chassis.pid_turn_set(330_deg, 90);
+chassis.pid_wait_quick();
 
 chassis.pid_drive_set(-19_in, 127);
 chassis.pid_wait();
 
-chassis.pid_turn_set(34_deg, 90, shortest, true);
+//chassis.pid_turn_set(34_deg, 90, shortest, true);
+//chassis.pid_wait_quick_chain();
+
+chassis.pid_turn_set(105, 90, shortest, true);
 chassis.pid_wait_quick_chain();
 
-chassis.pid_turn_set(105_deg, 90, shortest, true);
-chassis.pid_wait_quick();
 
 intake2.move(127);
 
@@ -405,28 +423,36 @@ Piston22.set(false);
 
 pros::delay(200);
 
-chassis.pid_turn_set(95_deg, 110, shortest, true);
-chassis.pid_wait();
+chassis.pid_turn_set(160, 110, shortest, true);
+chassis.pid_wait_quick_chain();
 
-chassis.pid_drive_set(32_in, 127);
+chassis.pid_turn_set(95, 110, shortest, true);
+chassis.pid_wait_quick_chain();
+
+
+chassis.pid_drive_set(32_in, 70);
 chassis.pid_wait_until(2_in);
-chassis.pid_speed_max_set(65);
+chassis.pid_speed_max_set(55);
+chassis.pid_wait_until(12_in);
+Piston737.set(false);
 chassis.pid_wait();
 
 
-chassis.pid_turn_set(295_deg, 110, shortest, true);
+chassis.pid_turn_set(500, 110, shortest, true);
 chassis.pid_wait();
 
 Piston737.set(false);
 
 pros::delay(350);
 
-chassis.pid_turn_set(305_deg, 110, shortest, true);
+chassis.pid_turn_set(510, 110, shortest, true);
 chassis.pid_wait();
 
 
 //chassis.pid_drive_set(34_in, 127);
 //chassis.pid_wait_quick();
+
+/*
 
 pros::delay(250);
 
@@ -443,6 +469,30 @@ chassis.pid_wait();
 
 chassis.pid_drive_set(30_in, 100);
 //armPID.target_set(1000);
+chassis.pid_wait();
+*/
+
+
+//chassis.pid_turn_set(46_deg, 90);
+//chassis.pid_wait();
+
+chassis.pid_drive_set(36_in, 127);
+chassis.pid_wait();
+
+///armPID.target_set(800);
+
+pros::delay(250);
+
+chassis.pid_drive_set(-10_in, 110);
+chassis.pid_wait();
+
+
+chassis.pid_turn_set(330_deg, 90);
+chassis.pid_wait();
+
+chassis.pid_drive_set(50_in, 110);
+chassis.pid_wait_until(30_in);
+chassis.pid_speed_max_set(55);
 chassis.pid_wait();
 
 }//end
